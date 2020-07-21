@@ -4,6 +4,8 @@
     Author     : Miriam
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
+<%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="hn.uth.proyecto.vetkom.PruebaConexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,12 +18,16 @@
         <h1>Hello World!</h1>
         
         <%
-            PruebaConexion pc = new PruebaConexion();
-            String mensaje = pc.conexion();
+            EmpleadoRepositorio ep = new EmpleadoRepositorio();
+            Empleado empleado = ep.buscar(1);
         %>
         
         <h2>
-            <%=mensaje%>
+            <%=empleado.getNombres()%>
         </h2>
+        <a href="paginas/empleados/registrarEmpleado.jsp">Ir a empleado</a>
+        <a href="paginas/buscador.jsp?action=Empleado">Ir a buscador empleado</a><br>
+        <a href="paginas/clientes/registrarCliente.jsp">Ir a cliente</a>
+        <a href="paginas/buscador.jsp?action=Cliente">Ir a buscador cliente</a>
     </body>
 </html>

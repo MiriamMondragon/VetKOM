@@ -5,16 +5,16 @@
  */
 package hn.uth.proyecto.vetkom.repositorios;
 
-import hn.uth.proyecto.vetkom.objetos.Empleado;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import hn.uth.proyecto.vetkom.objetos.Cliente;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,8 +22,8 @@ import java.util.logging.Logger;
  *
  * @author Miriam
  */
-public class EmpleadoRepositorio implements Repositorio<Empleado> {
-
+public class ClienteRepositorio implements Repositorio<Cliente>{
+    
     public Connection getConnection() throws Exception {
         try {
 
@@ -42,32 +42,30 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
     }
 
     @Override
-    public void crear(Empleado t) throws Exception {
+    public void crear(Cliente t) throws Exception {
         try {
             Connection cnx = getConnection();
 
-            String SPsql = "DECLARE @IDEMPLEADO INT "
-                    + "EXEC INSERTAR_EMPLEADO ?,?,?,?,?,?,?,?,?,?,?,?,@ID = @IDEMPLEADO OUTPUT";
+            String SPsql = "EXEC INSERTAR_CLIENTE ?,?,?,?,?,?,?,?,?,?,?";
             PreparedStatement ps = cnx.prepareStatement(SPsql);
-            ps.setString(1, t.getNombres());
-            ps.setString(2, t.getApellidos());
-            ps.setDate(3, convertirSqlDate(t.getFechaNacimiento()));
-            ps.setDate(4, convertirSqlDate(t.getFechaContratacion()));
-            ps.setDate(5, convertirSqlDate(t.getFechaFinalizacionContrato()));
-            ps.setInt(6, t.getIdCargo());
-            if (t.getReportaA() != 0) {
-                ps.setInt(7, t.getReportaA());
-            } else {
-                ps.setString(7, null);
-            }
-            ps.setString(8, t.getDireccion());
-            ps.setInt(9, t.getIdCiudad());
-            ps.setString(10, t.getRutaFoto());
-            ps.setString(11, t.getNotas());
+            ps.setString(1, t.getIdCliente());
+            ps.setString(2, t.getNombres());
+            ps.setString(3, t.getApellidos());
+            ps.setDate(4, convertirSqlDate(t.getFechaRegistro()));
+            ps.setDate(5, convertirSqlDate(t.getFechaNacimiento()));
+            ps.setInt(6, t.getIdGenero());
+            ps.setString(7, t.getDireccion());
+            ps.setInt(8, t.getIdCiudad());
+            ps.setString(9, t.getRutaFoto());
             if (t.getTelefonos() != null) {
-                ps.setString(12, t.getTelefonos());
+                ps.setString(10, t.getTelefonos());
             } else {
-                ps.setString(12, "");
+                ps.setString(10, "");
+            }
+            if (t.getCorreos() != null) {
+                ps.setString(11, t.getCorreos());
+            } else {
+                ps.setString(11, "");
             }
             ps.execute();
             ps.close();
@@ -78,15 +76,15 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
     }
 
     @Override
-    public void desactivar(Empleado t) throws Exception {
+    public void desactivar(Cliente t) throws Exception {
 
         try {
             Connection cnx = getConnection();
 
-            String sql = "EXEC ACTUALIZAR_EMPLEADO ?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+            String sql = "EXEC ACTUALIZAR_CLIENTE ?,?,?,?,?,?,?,?,?,?,?,?";
 
             PreparedStatement ps = cnx.prepareStatement(sql);
-            ps.setInt(1, t.getIdEmpleado());
+            ps.setString(1, t.getIdCliente());
             ps.setString(2, null);
             ps.setString(3, null);
             ps.setString(4, null);
@@ -94,12 +92,10 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
             ps.setString(6, null);
             ps.setString(7, null);
             ps.setString(8, null);
-            ps.setString(9, null);
+            ps.setInt(9, 0);
             ps.setString(10, null);
-            ps.setInt(11, 0);
+            ps.setString(11, null);
             ps.setString(12, null);
-            ps.setString(13, null);
-            ps.setString(14, null);
 
             ps.execute();
             ps.close();
@@ -110,32 +106,26 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
     }
 
     @Override
-    public void actualizar(Empleado t) throws Exception {
+    public void actualizar(Cliente t) throws Exception {
 
         try {
             Connection cnx = getConnection();
 
-            String sql = "EXEC ACTUALIZAR_EMPLEADO ?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+            String sql = "EXEC ACTUALIZAR_CLIENTE ?,?,?,?,?,?,?,?,?,?,?,?";
 
             PreparedStatement ps = cnx.prepareStatement(sql);
-            ps.setInt(1, t.getIdEmpleado());
+            ps.setString(1, t.getIdCliente());
             ps.setString(2, t.getNombres());
             ps.setString(3, t.getApellidos());
-            ps.setDate(4, convertirSqlDate(t.getFechaNacimiento()));
-            ps.setDate(5, convertirSqlDate(t.getFechaContratacion()));
-            ps.setDate(6, convertirSqlDate(t.getFechaFinalizacionContrato()));
-            ps.setInt(7, t.getIdCargo());
-            if (t.getReportaA() != 0) {
-                ps.setInt(8, t.getReportaA());
-            } else {
-                ps.setString(8, null);
-            }
-            ps.setString(9, t.getDireccion());
-            ps.setInt(10, t.getIdCiudad());
-            ps.setInt(11, 1);
-            ps.setString(12, t.getRutaFoto());
-            ps.setString(13, t.getNotas());
-            ps.setString(14, t.getTelefonos());
+            ps.setDate(4, convertirSqlDate(t.getFechaRegistro()));
+            ps.setDate(5, convertirSqlDate(t.getFechaNacimiento()));
+            ps.setInt(6, t.getIdGenero());
+            ps.setString(7, t.getDireccion());
+            ps.setInt(8, t.getIdCiudad());
+            ps.setInt(9, 1);
+            ps.setString(10, t.getRutaFoto());
+            ps.setString(11, t.getTelefonos());
+            ps.setString(12, t.getCorreos());
 
             ps.execute();
             ps.close();
@@ -146,53 +136,43 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
     }
 
     @Override
-    public Empleado buscar(Object id) throws Exception {
-        Empleado valorRetorno = new Empleado();
+    public Cliente buscar(Object id) throws Exception {
+        Cliente valorRetorno = new Cliente();
         try {
             Connection cnx = getConnection();
 
-            String sql = "EXEC CONSULTAR_EMPLEADO " + id;
+            String sql = "EXEC CONSULTAR_CLIENTE '" + id + "'";
 
             Statement st = cnx.createStatement();
 
             ResultSet resultado = st.executeQuery(sql);
 
             while (resultado.next()) {
-                int idEmpleado = resultado.getInt("Id_Empleado");
+                String idCliente = resultado.getString("Id_Cliente");
                 String nombres = resultado.getString("Nombres");
                 String apellidos = resultado.getString("Apellidos");
+                Date fechaRegistro = resultado.getDate("Fecha_Registro");
                 Date fechaNacimiento = resultado.getDate("Fecha_Nacimiento");
-                Date fechaContratacion = resultado.getDate("Fecha_Contratacion");
-                Date fechaFinalizacionContrato = resultado.getDate("Fecha_Finalizacion_Contrato");
-                int idCargo = resultado.getInt("Id_Cargo");
-                String reportaA = String.valueOf(resultado.getInt("Reporta_A"));
+                int idGenero = resultado.getInt("Id_Genero");
                 String direccion = resultado.getString("Direccion");
                 int idCiudad = resultado.getInt("Id_Ciudad");
                 int activo = resultado.getInt("Activo");
                 String rutaFoto = resultado.getString("Ruta_Foto");
-                String notas = resultado.getString("Notas");
 
-                valorRetorno.setIdEmpleado(idEmpleado);
+                valorRetorno.setIdCliente(idCliente);
                 valorRetorno.setNombres(nombres);
                 valorRetorno.setApellidos(apellidos);
                 valorRetorno.setFechaNacimiento(fechaNacimiento);
-                valorRetorno.setFechaContratacion(fechaContratacion);
-                valorRetorno.setFechaFinalizacionContrato(fechaFinalizacionContrato);
-                valorRetorno.setIdCargo(idCargo);
-                if (reportaA != null) {
-                    valorRetorno.setReportaA(Integer.valueOf(reportaA));
-                } else {
-                    valorRetorno.setReportaA(0);
-                }
+                valorRetorno.setFechaRegistro(fechaRegistro);
+                valorRetorno.setIdGenero(idGenero);
                 valorRetorno.setDireccion(direccion);
                 valorRetorno.setIdCiudad(idCiudad);
                 valorRetorno.setActivo(activo);
                 valorRetorno.setRutaFoto(rutaFoto);
-                valorRetorno.setNotas(notas);
             }
 
             valorRetorno.setTelefonos(getTelefonos(id));
-
+            valorRetorno.setCorreos(getCorreos(id));
             st.close();
             cnx.close();
 
@@ -203,51 +183,43 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
     }
 
     @Override
-    public List<Empleado> buscarTodo() throws Exception {
-        List<Empleado> listaRetorno = new ArrayList<>();
+    public List<Cliente> buscarTodo() throws Exception {
+        List<Cliente> listaRetorno = new ArrayList<>();
         try {
             Connection cnx = getConnection();
 
-            String sql = "SELECT * FROM Empleados";
+            String sql = "SELECT * FROM Clientes";
 
             Statement st = cnx.createStatement();
 
             ResultSet resultado = st.executeQuery(sql);
 
             while (resultado.next()) {
-                int idEmpleado = resultado.getInt("Id_Empleado");
+                String idCliente = resultado.getString("Id_Cliente");
                 String nombres = resultado.getString("Nombres");
                 String apellidos = resultado.getString("Apellidos");
+                Date fechaRegistro = resultado.getDate("Fecha_Registro");
                 Date fechaNacimiento = resultado.getDate("Fecha_Nacimiento");
-                Date fechaContratacion = resultado.getDate("Fecha_Contratacion");
-                Date fechaFinalizacionContrato = resultado.getDate("Fecha_Finalizacion_Contrato");
-                int idCargo = resultado.getInt("Id_Cargo");
-                String reportaA = String.valueOf(resultado.getInt("Reporta_A"));
+                int idGenero = resultado.getInt("Id_Genero");
                 String direccion = resultado.getString("Direccion");
                 int idCiudad = resultado.getInt("Id_Ciudad");
                 int activo = resultado.getInt("Activo");
                 String rutaFoto = resultado.getString("Ruta_Foto");
-                String notas = resultado.getString("Notas");
 
-                Empleado valorRetorno = new Empleado();
-                valorRetorno.setIdEmpleado(idEmpleado);
+                Cliente valorRetorno = new Cliente();
+                valorRetorno.setIdCliente(idCliente);
                 valorRetorno.setNombres(nombres);
                 valorRetorno.setApellidos(apellidos);
                 valorRetorno.setFechaNacimiento(fechaNacimiento);
-                valorRetorno.setFechaContratacion(fechaContratacion);
-                valorRetorno.setFechaFinalizacionContrato(fechaFinalizacionContrato);
-                valorRetorno.setIdCargo(idCargo);
-                if (reportaA != null) {
-                    valorRetorno.setReportaA(Integer.valueOf(reportaA));
-                } else {
-                    valorRetorno.setReportaA(0);
-                }
+                valorRetorno.setFechaRegistro(fechaRegistro);
+                valorRetorno.setIdGenero(idGenero);
                 valorRetorno.setDireccion(direccion);
                 valorRetorno.setIdCiudad(idCiudad);
                 valorRetorno.setActivo(activo);
                 valorRetorno.setRutaFoto(rutaFoto);
-                valorRetorno.setNotas(notas);
-                valorRetorno.setTelefonos(getTelefonos(idEmpleado));
+
+                valorRetorno.setTelefonos(getTelefonos(idCliente));
+                valorRetorno.setCorreos(getCorreos(idCliente));
 
                 listaRetorno.add(valorRetorno);
             }
@@ -263,33 +235,7 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
     private Date convertirSqlDate(java.util.Date fecha) {
         return new java.sql.Date(fecha.getTime());
     }
-
-    public int getIdentity() throws Exception {
-        int valorRetorno = 0;
-        try {
-            Connection cnx = getConnection();
-
-            String sql = "SELECT MAX(Id_Empleado) + 1 AS SECUENCIA FROM Empleados ";
-
-            Statement st = cnx.createStatement();
-
-            ResultSet resultado = st.executeQuery(sql);
-
-            while (resultado.next()) {
-                int secuencia = resultado.getInt("SECUENCIA");
-                valorRetorno = secuencia;
-            }
-
-            st.close();
-            cnx.close();
-            if(valorRetorno == 0){
-                valorRetorno = 1;
-            }
-        } catch (Exception e) {
-            throw new Exception("Error al calcular secuencia: " + e.toString());
-        }
-        return valorRetorno;
-    }
+    
 
     public String getTelefonos(Object id) throws Exception {
         String telefono = "";
@@ -297,7 +243,7 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
         try {
             Connection cnx = getConnection();
 
-            String sql = "SELECT Telefono FROM Telefonos_Empleados WHERE Id_Empleado = " + id;
+            String sql = "SELECT Telefono FROM Clientes_Telefonos WHERE Id_Cliente = '" + id + "'";
 
             Statement st = cnx.createStatement();
 
@@ -323,5 +269,39 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
             throw new Exception("Error al buscar telefonos: " + e.toString());
         }
         return telefono;
+    }
+    
+    public String getCorreos(Object id) throws Exception {
+        String correo = "";
+        List<String> correos = new ArrayList<>();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT Correo FROM Clientes_Correos WHERE Id_Cliente = '" + id + "'";
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                correo = resultado.getString("Correo");
+                correos.add(correo);
+            }
+            st.close();
+            cnx.close();
+
+            for (int i = 0; i < correos.size(); i++) {
+                if (i == 0) {
+                    correo = correos.get(i);
+                } else {
+                    correo += "," + correos.get(i);
+                }
+
+            }
+
+        } catch (SQLException e) {
+            throw new Exception("Error al buscar telefonos: " + e.toString());
+        }
+        return correo;
     }
 }

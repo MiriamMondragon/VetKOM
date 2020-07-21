@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface Repositorio<T> {
     public void crear(T t) throws Exception ;
-    public void eliminar(T t) throws Exception ;
+    public void desactivar(T t) throws Exception ;
     public void actualizar(T t) throws Exception ;
     
     public T buscar(Object id) throws Exception ;

@@ -5,55 +5,52 @@
  */
 package hn.uth.proyecto.vetkom.objetos;
 
+import java.time.Instant;
 import java.util.Date;
 
 /**
  *
  * @author Miriam
  */
-public class Empleado {
+public class Cliente {
     
-    private int idEmpleado;
+    private String idCliente;
     private String nombres;
     private String apellidos;
+    private Date fechaRegistro;
     private Date fechaNacimiento;
-    private Date fechaContratacion;
-    private Date fechaFinalizacionContrato;
-    private int idCargo;
-    private int reportaA;
+    private int idGenero;
     private String direccion;
     private int idCiudad;
     private int activo;
     private String rutaFoto;
-    private String notas;
+    private String correos;
     private String telefonos;
 
-    public Empleado() {
+    public Cliente() {
     }
 
-    public Empleado(int idEmpleado, String nombres, String apellidos, Date fechaNacimiento, Date fechaContratacion, Date fechaFinalizacionContrato, int idCargo, int reportaA, String direccion, int idCiudad, int activo, String rutaFoto, String notas, String telefonos) {
-        this.idEmpleado = idEmpleado;
+    public Cliente(String idCliente, String nombres, String apellidos, Date fechaRegistro, Date fechaNacimiento, int idGenero, String direccion, int idCiudad, int activo, String rutaFoto, String correos, String telefonos) {
+        this.idCliente = idCliente;
         this.nombres = nombres;
         this.apellidos = apellidos;
+        this.fechaRegistro = Date.from(Instant.now());
         this.fechaNacimiento = fechaNacimiento;
-        this.fechaContratacion = fechaContratacion;
-        this.fechaFinalizacionContrato = fechaFinalizacionContrato;
-        this.idCargo = idCargo;
-        this.reportaA = reportaA;
+        this.idGenero = idGenero;
         this.direccion = direccion;
         this.idCiudad = idCiudad;
         this.activo = activo;
         this.rutaFoto = rutaFoto;
-        this.notas = notas;
+        this.correos = correos;
         this.telefonos = telefonos;
     }
 
-    public int getIdEmpleado() {
-        return idEmpleado;
+    public String getIdCliente() {
+        return idCliente;
     }
 
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNombres() {
@@ -72,6 +69,14 @@ public class Empleado {
         this.apellidos = apellidos;
     }
 
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -80,36 +85,12 @@ public class Empleado {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Date getFechaContratacion() {
-        return fechaContratacion;
+    public int getIdGenero() {
+        return idGenero;
     }
 
-    public void setFechaContratacion(Date fechaContratacion) {
-        this.fechaContratacion = fechaContratacion;
-    }
-
-    public Date getFechaFinalizacionContrato() {
-        return fechaFinalizacionContrato;
-    }
-
-    public void setFechaFinalizacionContrato(Date fechaFinalizacionContrato) {
-        this.fechaFinalizacionContrato = fechaFinalizacionContrato;
-    }
-
-    public int getIdCargo() {
-        return idCargo;
-    }
-
-    public void setIdCargo(int idCargo) {
-        this.idCargo = idCargo;
-    }
-
-    public int getReportaA() {
-        return reportaA;
-    }
-
-    public void setReportaA(int reportaA) {
-        this.reportaA = reportaA;
+    public void setIdGenero(int idGenero) {
+        this.idGenero = idGenero;
     }
 
     public String getDireccion() {
@@ -144,12 +125,12 @@ public class Empleado {
         this.rutaFoto = rutaFoto;
     }
 
-    public String getNotas() {
-        return notas;
+    public String getCorreos() {
+        return correos;
     }
 
-    public void setNotas(String notas) {
-        this.notas = notas;
+    public void setCorreos(String correos) {
+        this.correos = correos;
     }
 
     public String getTelefonos() {
@@ -159,7 +140,6 @@ public class Empleado {
     public void setTelefonos(String telefonos) {
         this.telefonos = telefonos;
     }
-
     
     
 }
