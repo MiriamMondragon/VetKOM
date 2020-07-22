@@ -7,6 +7,7 @@ package hn.uth.proyecto.vetkom.controladores;
 
 import hn.uth.proyecto.vetkom.repositorios.DatosBDRepositorio;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -224,4 +225,116 @@ public class controladorDatosBD {
         return opcion;
     }
 
+        public String getOpcionesColores(int seleccionado) {
+        Hashtable colores = new Hashtable();
+        String opcion = "";
+        try {
+            colores = lr.getColores();
+        } catch (Exception ex) {
+            Logger.getLogger(controladorDatosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<Integer> listaOrdenada = Collections.list(colores.keys());
+        Collections.sort(listaOrdenada);
+        Iterator<Integer> it = listaOrdenada.iterator();
+        while (it.hasNext()) {
+            Integer i = it.next();
+            if(seleccionado != 0 && seleccionado == i.intValue()){
+                opcion += "<option value='" + i.toString() + "' selected>" + colores.get(i.intValue()).toString() + "</option>";
+            }else{
+                opcion += "<option value='" + i.toString() + "'>" + colores.get(i.intValue()).toString() + "</option>";
+            }
+        }
+        return opcion;
+    }
+    
+    public String getOpcionesEspecies(int seleccionado) {
+        Hashtable especies = new Hashtable();
+        String opcion = "";
+        try {
+            especies = lr.getEspecies();
+        } catch (Exception ex) {
+            Logger.getLogger(controladorDatosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<Integer> listaOrdenada = Collections.list(especies.keys());
+        Collections.sort(listaOrdenada);
+        Iterator<Integer> it = listaOrdenada.iterator();
+        while (it.hasNext()) {
+            Integer i = it.next();
+            if(seleccionado != 0 && seleccionado == i.intValue()){
+                opcion += "<option value='" + i.toString() + "' selected>" + especies.get(i.intValue()).toString() + "</option>";
+            }else{
+                opcion += "<option value='" + i.toString() + "'>" + especies.get(i.intValue()).toString() + "</option>";
+            }
+        }
+        return opcion;
+    }
+    
+    public String getOpcionesRaza(int idEspecie, int seleccionado) {
+        Hashtable raza = new Hashtable();
+        String opcion = "";
+        try {
+            raza = lr.getRaza(idEspecie);
+        } catch (Exception ex) {
+            Logger.getLogger(controladorDatosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<Integer> listaOrdenada = Collections.list(raza.keys());
+        Collections.sort(listaOrdenada);
+        Iterator<Integer> it = listaOrdenada.iterator();
+        while (it.hasNext()) {
+            Integer i = it.next();
+            if(seleccionado != 0 && seleccionado == i.intValue()){
+                opcion += "<option value='" + i.toString() + "' selected>" + raza.get(i.intValue()).toString() + "</option>";
+            }else{
+                opcion += "<option value='" + i.toString() + "'>" + raza.get(i.intValue()).toString() + "</option>";
+            }
+        }
+
+        return opcion;
+    }
+    
+        public String getRaza(int idRaza) {
+        Hashtable razas = new Hashtable();
+        String opcion = "";
+        try {
+            razas = lr.getRaza(idRaza);
+        } catch (Exception ex) {
+            Logger.getLogger(controladorDatosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<Integer> listaOrdenada = Collections.list(razas.keys());
+        Collections.sort(listaOrdenada);
+        Iterator<Integer> it = listaOrdenada.iterator();
+        while (it.hasNext()) {
+            Integer i = it.next();
+            opcion += "<option value='" + i.toString() + "' selected>" + razas.get(i.intValue()).toString() + "</option>";
+        }
+
+        return opcion;
+    }
+    
+    public String getOpcionesClienteDuenio(String seleccionado) {
+        Hashtable<String, String> cliente = new Hashtable();
+        String opcion = "";
+        try {
+            cliente = lr.getClienteDuenio();
+        } catch (Exception ex) {
+            Logger.getLogger(controladorDatosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String llave = "";
+        Enumeration duenio = cliente.keys();
+        while (duenio.hasMoreElements()) {
+            llave = (String) duenio.nextElement();
+            if(seleccionado != null && seleccionado.equals(llave)){
+                opcion += "<option value='" + llave.toString() + "' selected>" + cliente.get(llave).toString() + "</option>";
+            }else{
+                opcion += "<option value='" + llave.toString() + "'>" + cliente.get(llave).toString() + "</option>";
+            }
+        }
+
+        /*for (Object key : paises.keySet()){
+            out.print("<option value='" + key.toString() + "'>" + paises.get(key).toString() + "</option>"); 
+        }
+         */
+        return opcion;
+    }
+    
 }

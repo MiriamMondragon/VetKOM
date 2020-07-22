@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author Miriam
  */
 public class DatosBDRepositorio {
-    
+
     public static Connection getConnection() throws Exception {
         try {
 
@@ -36,12 +36,12 @@ public class DatosBDRepositorio {
             throw new Exception("No se pudo establecer la conexión: " + e.toString());
         }
     }
-    
+
     public static Hashtable getPaises() throws Exception {
         Hashtable datos = new Hashtable();
         try {
             Connection cnx = getConnection();
-           
+
             String sql = "SELECT Id_Pais, Nombre_Pais FROM Paises";
 
             Statement st = cnx.createStatement();
@@ -61,12 +61,12 @@ public class DatosBDRepositorio {
         }
         return datos;
     }
-    
+
     public static Hashtable getDeptos(int idPais) throws Exception {
         Hashtable datos = new Hashtable();
         try {
             Connection cnx = getConnection();
-           
+
             String sql = "SELECT Id_Departamento, Nombre_Departamento FROM Departamentos WHERE Id_Pais = " + idPais;
 
             Statement st = cnx.createStatement();
@@ -86,12 +86,12 @@ public class DatosBDRepositorio {
         }
         return datos;
     }
-    
+
     public static Hashtable getCiudades(int idDepto) throws Exception {
         Hashtable datos = new Hashtable();
         try {
             Connection cnx = getConnection();
-           
+
             String sql = "SELECT Id_Ciudad, Nombre_Ciudad FROM Ciudades WHERE Id_Departamento = " + idDepto;
 
             Statement st = cnx.createStatement();
@@ -111,12 +111,12 @@ public class DatosBDRepositorio {
         }
         return datos;
     }
-    
+
     public static Hashtable getCiudad(int idCiudad) throws Exception {
         Hashtable datos = new Hashtable();
         try {
             Connection cnx = getConnection();
-           
+
             String sql = "SELECT Id_Ciudad, Nombre_Ciudad FROM Ciudades WHERE Id_Ciudad = " + idCiudad;
 
             Statement st = cnx.createStatement();
@@ -136,12 +136,12 @@ public class DatosBDRepositorio {
         }
         return datos;
     }
-    
+
     public static Hashtable getCargos() throws Exception {
         Hashtable datos = new Hashtable();
         try {
             Connection cnx = getConnection();
-           
+
             String sql = "SELECT Id_Cargo, Nombre_Cargo FROM Cargos";
 
             Statement st = cnx.createStatement();
@@ -161,12 +161,12 @@ public class DatosBDRepositorio {
         }
         return datos;
     }
-    
+
     public static Hashtable getReportaA() throws Exception {
         Hashtable datos = new Hashtable();
         try {
             Connection cnx = getConnection();
-           
+
             String sql = "SELECT Id_Empleado, Nombres, Apellidos FROM Empleados WHERE Activo = 1";
 
             Statement st = cnx.createStatement();
@@ -186,12 +186,12 @@ public class DatosBDRepositorio {
         }
         return datos;
     }
-    
+
     public static Hashtable getGeneros() throws Exception {
         Hashtable datos = new Hashtable();
         try {
             Connection cnx = getConnection();
-           
+
             String sql = "SELECT Id_Genero, Nombre_Genero FROM Generos";
 
             Statement st = cnx.createStatement();
@@ -211,12 +211,12 @@ public class DatosBDRepositorio {
         }
         return datos;
     }
-    
+
     public static Hashtable getCategoriasProductos() throws Exception {
         Hashtable datos = new Hashtable();
         try {
             Connection cnx = getConnection();
-           
+
             String sql = "SELECT Id_Categoria, Nombre_Categoria FROM Categorias";
 
             Statement st = cnx.createStatement();
@@ -236,12 +236,12 @@ public class DatosBDRepositorio {
         }
         return datos;
     }
-    
+
     public static Hashtable getProveedores() throws Exception {
         Hashtable datos = new Hashtable();
         try {
             Connection cnx = getConnection();
-           
+
             String sql = "SELECT Id_Proveedor, Nombre_Proveedor FROM Proveedores";
 
             Statement st = cnx.createStatement();
@@ -261,5 +261,105 @@ public class DatosBDRepositorio {
         }
         return datos;
     }
-    
+
+    public static Hashtable getColores() throws Exception {
+        Hashtable datos = new Hashtable();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT ID_Color, Nombre_Color FROM Colores";
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                int idColor = resultado.getInt("Id_Color");
+                String nombreColor = resultado.getString("Nombre_Color");
+                datos.put(idColor, nombreColor);
+            }
+
+            st.close();
+            cnx.close();
+        } catch (SQLException e) {
+            throw new Exception("Error al buscar colores: " + e.toString());
+        }
+        return datos;
+    }
+
+    public static Hashtable getEspecies() throws Exception {
+        Hashtable datos = new Hashtable();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT Id_Especie, Nombre_Especie FROM Especies";
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                int idEspecie = resultado.getInt("Id_Especie");
+                String nombreEspecie = resultado.getString("Nombre_Especie");
+                datos.put(idEspecie, nombreEspecie);
+            }
+
+            st.close();
+            cnx.close();
+        } catch (SQLException e) {
+            throw new Exception("Error al buscar especies: " + e.toString());
+        }
+        return datos;
+    }
+
+    public static Hashtable getRaza(int idEspecie) throws Exception {
+        Hashtable datos = new Hashtable();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT Id_Raza, Nombre_Raza FROM Razas WHERE Id_Especie = " + idEspecie;
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                int idRaza = resultado.getInt("Id_Raza");
+                String nombreRaza = resultado.getString("Nombre_Raza");
+                datos.put(idRaza, nombreRaza);
+            }
+
+            st.close();
+            cnx.close();
+        } catch (SQLException e) {
+            throw new Exception("Error al buscar raza: " + e.toString());
+        }
+        return datos;
+    }
+
+    public static Hashtable getClienteDuenio() throws Exception {
+        Hashtable<String, String> datos = new Hashtable();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT Id_Cliente, Nombres, Apellidos FROM Clientes";
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                String idCliente = resultado.getString("Id_Cliente");
+                String nombre = resultado.getString("Nombres") + " " + resultado.getString("Apellidos");
+                datos.put(idCliente, nombre);
+            }
+
+            st.close();
+            cnx.close();
+        } catch (SQLException e) {
+            throw new Exception("Error al buscar dueño: " + e.toString());
+        }
+        return datos;
+    }
+
 }
