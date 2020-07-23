@@ -37,5 +37,7 @@
         <a href="paginas/buscador.jsp?action=Usuario">Ir a buscador usuario</a><br>
         <a href="paginas/animales/registrarAnimal.jsp">Ir a Animal</a>
         <a href="paginas/buscador.jsp?action=Animal">Ir a buscador animal</a><br>
+        <a href="paginas/citas/registrarCita.jsp">Ir a Cita</a>
+        <a href="paginas/buscador.jsp?action=Cita">Ir a buscador cita</a><br>
     </body>
 </html>

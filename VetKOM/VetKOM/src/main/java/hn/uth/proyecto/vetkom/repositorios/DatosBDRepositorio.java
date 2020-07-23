@@ -242,7 +242,7 @@ public class DatosBDRepositorio {
         try {
             Connection cnx = getConnection();
 
-            String sql = "SELECT Id_Proveedor, Nombre_Proveedor FROM Proveedores";
+            String sql = "SELECT Id_Proveedor, Nombre_Proveedor FROM Proveedores WHERE Activo = 1";
 
             Statement st = cnx.createStatement();
 
@@ -342,7 +342,7 @@ public class DatosBDRepositorio {
         try {
             Connection cnx = getConnection();
 
-            String sql = "SELECT Id_Cliente, Nombres, Apellidos FROM Clientes";
+            String sql = "SELECT Id_Cliente, Nombres, Apellidos FROM Clientes WHERE Activo = 1";
 
             Statement st = cnx.createStatement();
 
@@ -357,7 +357,113 @@ public class DatosBDRepositorio {
             st.close();
             cnx.close();
         } catch (SQLException e) {
-            throw new Exception("Error al buscar dueño: " + e.toString());
+            throw new Exception("Error al buscar dueños: " + e.toString());
+        }
+        return datos;
+    }
+
+    public static Hashtable getAnimalxDuenio(String idDuenio) throws Exception {
+        Hashtable datos = new Hashtable();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT Id_Animal, Nombre FROM Animales WHERE Id_Cliente_Duenio = '" + idDuenio + "'"
+                    +           "AND Activo = 1";
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                int idAnimal = resultado.getInt("Id_Animal");
+                String nombre = resultado.getString("Nombre");
+                datos.put(idAnimal, nombre);
+            }
+
+            st.close();
+            cnx.close();
+        } catch (SQLException e) {
+            throw new Exception("Error al buscar animales: " + e.toString());
+        }
+        return datos;
+    }
+
+    public static Hashtable getServicios() throws Exception {
+        Hashtable datos = new Hashtable();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT Id_Servicio, Nombre_Servicio FROM Servicios WHERE Id_Estado = 1";
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                int idServicio = resultado.getInt("Id_Servicio");
+                String nombre = resultado.getString("Nombre_Servicio");
+                datos.put(idServicio, nombre);
+            }
+
+            st.close();
+            cnx.close();
+        } catch (SQLException e) {
+            throw new Exception("Error al buscar servicios: " + e.toString());
+        }
+        return datos;
+    }
+
+    public static Hashtable getPersonalServicios(int idServicio) throws Exception {
+        Hashtable datos = new Hashtable();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT Id_Empleado, Nombres, Apellidos "
+                    + "FROM Empleados "
+                    + "WHERE Id_Empleado IN (SELECT Id_Empleado "
+                    +                       "FROM Servicios_Personal "
+                    +                       "WHERE Id_Servicio = " + idServicio + ") "
+                    +       "AND Activo = 1";
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                int idEmpleado = resultado.getInt("Id_Empleado");
+                String nombre = resultado.getString("Nombres") + " " + resultado.getString("Apellidos");
+                datos.put(idEmpleado, nombre);
+            }
+
+            st.close();
+            cnx.close();
+        } catch (SQLException e) {
+            throw new Exception("Error al buscar empleados por servicio: " + e.toString());
+        }
+        return datos;
+    }
+    
+    public static Hashtable getEstadosCita() throws Exception {
+        Hashtable datos = new Hashtable();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT Id_Estado_Cita, Estado_Cita FROM Estados_Cita";
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                int idEstado = resultado.getInt("Id_Estado_Cita");
+                String nombre = resultado.getString("Estado_Cita");
+                datos.put(idEstado, nombre);
+            }
+
+            st.close();
+            cnx.close();
+        } catch (SQLException e) {
+            throw new Exception("Error al buscar estados cita: " + e.toString());
         }
         return datos;
     }

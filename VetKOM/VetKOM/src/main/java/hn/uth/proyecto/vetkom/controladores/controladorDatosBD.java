@@ -329,11 +329,94 @@ public class controladorDatosBD {
                 opcion += "<option value='" + llave.toString() + "'>" + cliente.get(llave).toString() + "</option>";
             }
         }
-
-        /*for (Object key : paises.keySet()){
-            out.print("<option value='" + key.toString() + "'>" + paises.get(key).toString() + "</option>"); 
+        return opcion;
+    }
+    
+    public String getOpcionesAnimales(String idDuenio, int seleccionado) {
+        Hashtable animales = new Hashtable();
+        String opcion = "";
+        try {
+            animales = lr.getAnimalxDuenio(idDuenio);
+        } catch (Exception ex) {
+            Logger.getLogger(controladorDatosBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-         */
+        List<Integer> listaOrdenada = Collections.list(animales.keys());
+        Collections.sort(listaOrdenada);
+        Iterator<Integer> it = listaOrdenada.iterator();
+        while (it.hasNext()) {
+            Integer i = it.next();
+            if(seleccionado != 0 && seleccionado == i.intValue()){
+                opcion += "<option value='" + i.toString() + "' selected>" + animales.get(i.intValue()).toString() + "</option>";
+            }else{
+                opcion += "<option value='" + i.toString() + "'>" + animales.get(i.intValue()).toString() + "</option>";
+            }
+        }
+        return opcion;
+    }
+    
+    public String getOpcionesServicios(int seleccionado) {
+        Hashtable servicios = new Hashtable();
+        String opcion = "";
+        try {
+            servicios = lr.getServicios();
+        } catch (Exception ex) {
+            Logger.getLogger(controladorDatosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<Integer> listaOrdenada = Collections.list(servicios.keys());
+        Collections.sort(listaOrdenada);
+        Iterator<Integer> it = listaOrdenada.iterator();
+        while (it.hasNext()) {
+            Integer i = it.next();
+            if(seleccionado != 0 && seleccionado == i.intValue()){
+                opcion += "<option value='" + i.toString() + "' selected>" + servicios.get(i.intValue()).toString() + "</option>";
+            }else{
+                opcion += "<option value='" + i.toString() + "'>" + servicios.get(i.intValue()).toString() + "</option>";
+            }
+        }
+        return opcion;
+    }
+    
+    public String getOpcionesPersonal(int idServicio, int seleccionado) {
+        Hashtable personal = new Hashtable();
+        String opcion = "";
+        try {
+            personal = lr.getPersonalServicios(idServicio);
+        } catch (Exception ex) {
+            Logger.getLogger(controladorDatosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<Integer> listaOrdenada = Collections.list(personal.keys());
+        Collections.sort(listaOrdenada);
+        Iterator<Integer> it = listaOrdenada.iterator();
+        while (it.hasNext()) {
+            Integer i = it.next();
+            if(seleccionado != 0 && seleccionado == i.intValue()){
+                opcion += "<option value='" + i.toString() + "' selected>" + personal.get(i.intValue()).toString() + "</option>";
+            }else{
+                opcion += "<option value='" + i.toString() + "'>" + personal.get(i.intValue()).toString() + "</option>";
+            }
+        }
+        return opcion;
+    }
+    
+    public String getOpcionesEstados(int seleccionado) {
+        Hashtable estados = new Hashtable();
+        String opcion = "";
+        try {
+            estados = lr.getEstadosCita();
+        } catch (Exception ex) {
+            Logger.getLogger(controladorDatosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<Integer> listaOrdenada = Collections.list(estados.keys());
+        Collections.sort(listaOrdenada);
+        Iterator<Integer> it = listaOrdenada.iterator();
+        while (it.hasNext()) {
+            Integer i = it.next();
+            if(seleccionado != 0 && seleccionado == i.intValue()){
+                opcion += "<option value='" + i.toString() + "' selected>" + estados.get(i.intValue()).toString() + "</option>";
+            }else{
+                opcion += "<option value='" + i.toString() + "'>" + estados.get(i.intValue()).toString() + "</option>";
+            }
+        }
         return opcion;
     }
     
