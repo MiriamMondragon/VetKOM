@@ -126,10 +126,11 @@
                     <input type="text"  name="rutaFoto" maxlength="100" value='<%if (em.getRutaFoto()!= null) {
                             out.print(em.getRutaFoto());
                         }else{if(empleado.getRutaFoto()!= null){out.print(empleado.getDireccion());}}%>'/><br>
+                    <!--TEXT AREA PARA NOTAS-->
                     <label> Notas: </label>
-                    <input type="text"  name="notas" value='<%if (em.getNotas()!= null) {
+                    <textarea rows="4" cols="50"  name="notas"><%if (em.getNotas()!= null) {
                             out.print(em.getNotas());
-                        }else{if(empleado.getNotas()!= null){out.print(empleado.getNotas());}}%>'/><br>
+                        }else{if(empleado.getNotas()!= null){out.print(empleado.getNotas());}}%></textarea><br>
                     
                     <div class="tooltip">
                         <label> Teléfonos: </label>

@@ -22,15 +22,15 @@ import java.util.logging.Logger;
  *
  * @author Miriam
  */
-public class ClienteRepositorio implements Repositorio<Cliente>{
-    
+public class ClienteRepositorio implements Repositorio<Cliente> {
+
     public Connection getConnection() throws Exception {
         try {
 
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(EmpleadoRepositorio.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClienteRepositorio.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             String connectionUrl = "jdbc:sqlserver://DESKTOP-R7UAJG0\\SQLEXPRESS01:1433;databaseName=BD2_Veterinaria";
@@ -235,7 +235,6 @@ public class ClienteRepositorio implements Repositorio<Cliente>{
     private Date convertirSqlDate(java.util.Date fecha) {
         return new java.sql.Date(fecha.getTime());
     }
-    
 
     public String getTelefonos(Object id) throws Exception {
         String telefono = "";
@@ -270,7 +269,7 @@ public class ClienteRepositorio implements Repositorio<Cliente>{
         }
         return telefono;
     }
-    
+
     public String getCorreos(Object id) throws Exception {
         String correo = "";
         List<String> correos = new ArrayList<>();
