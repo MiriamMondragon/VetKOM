@@ -12,34 +12,42 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Iniciar Sesión</title>
+        <link rel="shortcut icon" type="image/x-icon" href="imagenes/Logo.ico"> <!--Icono del SitioWeb-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="estilos/iniciarSesion.css">
     </head>
-    <body>
-        <h1>Hello World!</h1>
+    <body id="principal">
+        <header>
+            
+        </header>
         
-        <%
-            EmpleadoRepositorio ep = new EmpleadoRepositorio();
-            Empleado empleado = ep.buscar(1);
-        %>
+        <div>
+            <a href="index.jsp"><img class="logoMenu" src="imagenes/Logo2.png" alt="VetKOM"></a>
         
-        <h2>
-            <%=empleado.getNombres()%>
-        </h2>
-        <a href="paginas/empleados/registrarEmpleado.jsp">Ir a empleado</a>
-        <a href="paginas/buscador.jsp?action=Empleado">Ir a buscador empleado</a><br>
-        <a href="paginas/clientes/registrarCliente.jsp">Ir a cliente</a>
-        <a href="paginas/buscador.jsp?action=Cliente">Ir a buscador cliente</a><br>
-        <a href="paginas/productos/registrarProducto.jsp">Ir a Producto</a>
-        <a href="paginas/buscador.jsp?action=Producto">Ir a buscador producto</a><br>
-        <a href="paginas/servicios/registrarServicio.jsp">Ir a Servicio</a>
-        <a href="paginas/buscador.jsp?action=Servicio">Ir a buscador servicio</a><br>
-        <a href="paginas/usuarios/registrarUsuario.jsp">Ir a Usuario</a>
-        <a href="paginas/buscador.jsp?action=Usuario">Ir a buscador usuario</a><br>
-        <a href="paginas/animales/registrarAnimal.jsp">Ir a Animal</a>
-        <a href="paginas/buscador.jsp?action=Animal">Ir a buscador animal</a><br>
-        <a href="paginas/citas/registrarCita.jsp">Ir a Cita</a>
-        <a href="paginas/buscador.jsp?action=Cita">Ir a buscador cita</a><br>
-        <a href="paginas/facturas/registrarFactura.jsp">Ir a Factura</a>
-        <a href="paginas/buscador.jsp?action=Factura">Ir a buscador factura</a><br>
+            <form class="animate__animated animate__slideInUp" action="#" method="POST">
+
+                <h1>Inicia Sesión</h1><br>
+
+                <p class="fas fa-envelope"> Usuario:<br/></p>
+                <input type="text" name="usuario" placeholder="Ingrese el Usuario"><br><br><br>
+                <p class="fas fa-unlock-alt"> Contraseña:<br/></p>
+                <input type="password" name="password" placeholder="Ingrese una contraseña"><br><br><br>
+
+                <input class="centrado" type="submit" value="Iniciar Sesión" name="sesion">
+
+                <p class="centrado">Menu Principal
+                  <a class="link" href="menuPrincipal.jsp">MenuPrincipal</a>
+                </p>
+            </form>
+        </div>
+
+        <footer>
+             <a href="index.jsp"><img class="imagenFooter" src="imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+        </footer>  
     </body>
 </html>

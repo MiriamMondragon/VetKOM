@@ -34,8 +34,11 @@ public class CitaRepositorio implements Repositorio<Cita> {
                 Logger.getLogger(CitaRepositorio.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            String connectionUrl = "jdbc:sqlserver://DESKTOP-R7UAJG0\\SQLEXPRESS01:1433;databaseName=BD2_Veterinaria";
-            return DriverManager.getConnection(connectionUrl, "sa", "Sephiroth51342");
+            String connectionUrl = "jdbc:sqlserver://DESKTOP-81AR53A\\SQLEXPRESS2017:1433;databaseName=BD2_Veterinaria";
+            return DriverManager.getConnection(connectionUrl, "sa", "kp198103");
+            
+            //String connectionUrl = "jdbc:sqlserver://DESKTOP-R7UAJG0\\SQLEXPRESS01:1433;databaseName=BD2_Veterinaria";
+            //return DriverManager.getConnection(connectionUrl, "sa", "Sephiroth51342");
 
         } catch (SQLException e) {
             throw new Exception("No se pudo establecer la conexión: " + e.toString());

@@ -4,6 +4,8 @@
     Author     : Miriam
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
+<%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="hn.uth.proyecto.vetkom.controladores.controladorPrincipal"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="hn.uth.proyecto.vetkom.controladores.controladorDatosBD"%>
@@ -14,7 +16,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="../../imagenes/Logo.ico"> <!--Icono del SitioWeb-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../estilos/menuPrincipal.css">
+        <link rel="stylesheet" href="../../estilos/registro.css">
         <title>Ver Factura</title>
     </head>
     <body>
@@ -34,15 +40,81 @@
         if (request.getSession().getAttribute("factura") != null) {
             fac = (Factura) request.getSession().getAttribute("factura");
         }
+        
+        EmpleadoRepositorio ep = new EmpleadoRepositorio();
+        Empleado empleado = ep.buscar(1);
         %>
         
-        <header>
-
+        <header class="encabezado">
+            <div class="encabezadoMenu">
+                <nav class="menu">
+                    <a href="../../menuPrincipal.jsp"><img class="logoMenu" src="../../imagenes/Logo2.png"></a>
+                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
+                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><img class="perfilMenu" ></a>
+                    <ul>
+                        <li><a href="../../menuPrincipal.jsp">Inicio</a></li>
+                        <li><p>Citas</p>
+                          <ul>
+                            <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
+                            <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
+                          </ul>
+                        </li>
+                        <li><p>Facturas</p>
+                            <ul>
+                                <li><a href="../../paginas/facturas/registrarFactura.jsp">Crear Factura</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Factura">Buscar Factura</a></li>
+                            </ul>
+                        </li>
+                        <li><p>Animales</p>
+                            <ul>
+                                <li><a href="../../paginas/animales/registrarAnimal.jsp">Registrar Animal</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Animal">Buscar Animal</a></li>
+                            </ul>
+                        </li>
+                        <li><p>Clientes</p>
+                            <ul>
+                                <li><a href="../../paginas/clientes/registrarCliente.jsp">Registrar Cliente</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Cliente">Buscar Cliente</a></li>
+                            </ul>
+                        </li>
+                        <li><p>Productos</p>
+                            <ul>
+                                <li><a href="../../paginas/productos/registrarProducto.jsp">Crear Producto</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Producto">Buscar Producto</a></li>
+                            </ul>
+                        </li>
+                        <li><p>Servicios</p>
+                            <ul>
+                                <li><a href="../../paginas/servicios/registrarServicio.jsp">Registrar Servicio</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Servicio">Buscar Servicio</a></li>
+                            </ul>
+                        </li>
+                        <li><p>Usuarios</p>
+                            <ul>
+                                <li><a href="../../paginas/usuarios/registrarUsuario.jsp">Crear Usuario</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Usuario">Buscar Usuario</a></li>
+                            </ul>
+                        </li>
+                        <li><p>Empleados</p>
+                            <ul>
+                                <li><a href="../../paginas/empleados/registrarEmpleado.jsp">Registrar Empleado</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Empleado">Buscar Empleado</a></li>
+                            </ul>
+                        </li>
+                        <li><p>▼</p>
+                            <ul>
+                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon">Ver Perfil</a></li>
+                                <li><a href="../../index.jsp">Cerrar Sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul> 
+                </nav>
+            </div>
         </header>
         
         <div class="principal">
             <div class="formulario">
-                <h2>Actualizar Empleado</h2>
+                <center><h2>Actualizar Factura</h2></center>
                 <form name="formulario" action="../../controladorFacturas" method="POST">
                     <input type="text"  name="accion" value="actualizar" hidden="true"/>
                     <label> No. Factura: </label>
@@ -68,8 +140,8 @@
                          <%if(fac.getIdMetodoPago()!= 0){out.print(cL.getOpcionesMetodosPago(fac.getIdMetodoPago()));}else{out.print(cL.getOpcionesMetodosPago(factura.getIdMetodoPago()));}%>
                     </select><br>
                     
+                    <label> Detalles: </label>
                     <div class="detalles">
-                        <label> Detalles: </label>
                         <%if (fac.getIdFactura()!= 0) {out.print(controladorDetalle.verTablaDetalles(fac.getIdFactura(), fac.getFechaFactura()));}else{out.print(controladorDetalle.verTablaDetalles(factura.getIdFactura(), factura.getFechaFactura()));}%>
                         <%out.print("</table>");%>
                     </div><br>
@@ -87,7 +159,9 @@
         </div>
         
         <footer>
-
-        </footer>
+             <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+        </footer>   
     </body>
 </html>

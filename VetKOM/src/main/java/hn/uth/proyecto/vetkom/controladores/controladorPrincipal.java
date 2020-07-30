@@ -268,9 +268,11 @@ public class controladorPrincipal {
                         fila += "<td>" + detalle.getPrecio() + "</td>";
                         fila += "<td>" + detalle.getImpuesto() + "</td>";
                         fila += "<td>" + detalle.getDescuento() + "</td>";
-                        fila += "<td><a href=\"../../controladorFacturas?accion=EliminarDetalle&idFactura=" + idFactura + "&idConcepto=" + detalle.getIdConcepto() + "\">-</a></td>";
+                        fila += "<td><a href=\"../../controladorFacturas?accion=EliminarDetalle&idFactura=" + idFactura + "&idConcepto=" + detalle.getIdConcepto() + "\"><img class='eliminarDetalle' src=\"../../imagenes/basura.png\"></a></td>";
                         tabla += fila;
                     }
+                    
+                    //<a href="../../menuPrincipal.jsp"><img class="botonDetalle" src="../../imagenes/basura.png"></a>
                 }
             } catch (Exception ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
