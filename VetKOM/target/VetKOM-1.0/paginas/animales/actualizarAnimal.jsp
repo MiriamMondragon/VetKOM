@@ -105,10 +105,11 @@
                             out.print(ani.getRutaFoto());
                         }else{if(animal.getRutaFoto()!= null){out.print(animal.getRutaFoto());}}%>'/><br>
                     
-                    <label> Observaciones: </label>                    
-                    <input type="text"  name="observaciones" value='<%if (ani.getObservaciones()!= null) {
+                    <label> Observaciones: </label> 
+                    <textarea rows="4" cols="50"  name="observaciones"><%if (ani.getObservaciones()!= null) {
                             out.print(ani.getObservaciones());
-                        }else{if(animal.getObservaciones()!= null){out.print(animal.getObservaciones());}}%>'/><br>
+                        }else{if(animal.getObservaciones()!= null){out.print(animal.getObservaciones());}}%>
+                    </textarea><br>
                     
                     <br>
                     

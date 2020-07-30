@@ -79,7 +79,9 @@
                     </select><br>
                     
                     <label> Observaciones: </label>
-                    <input type="text"  name="observaciones" value='<%if (cit.getObservaciones()!= null) {out.print(cit.getObservaciones());}%>'/><br>
+                    <textarea rows="4" cols="50"  name="observaciones"><%if (cit.getObservaciones()!= null) {
+                        out.print(cit.getObservaciones());}%>
+                    </textarea><br>
                     
                     <input class='boton' name="insert" type="submit" value="Guardar Cita" name="enviar" />
 

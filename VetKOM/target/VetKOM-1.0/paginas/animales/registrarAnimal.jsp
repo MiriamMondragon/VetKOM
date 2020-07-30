@@ -107,7 +107,7 @@
                     <label> Ruta de su fotografia: </label>
                     <input type="text"  name="rutaFoto" maxlength="100" value=''/><br>
                     <label> Observaciones: </label>
-                    <input type="text"  name="observaciones" value=''/><br>
+                    <textarea rows="4" cols="50"  name="observaciones"></textarea><br>
                     <br>
                     <input class='boton' name="insert" type="submit" value="Guardar Animal" name="enviar" />
 

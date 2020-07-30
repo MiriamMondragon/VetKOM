@@ -111,7 +111,7 @@
                     <label> Ruta de su fotografia: </label>
                     <input type="text"  name="rutaFoto" maxlength="100" value=''/><br>
                     <label> Notas: </label>
-                    <input type="text"  name="notas" value=''/><br>
+                    <textarea rows="4" cols="50"  name="notas"></textarea><br>
                     <div class="tooltip">
                         <label> Teléfonos: </label>
                         <span class="tooltiptext">Ingresar varios teléfonos, separados por comas (,)</span>

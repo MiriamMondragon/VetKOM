@@ -102,7 +102,10 @@
                     </select><br>
                     
                     <label> Observaciones: </label>
-                    <input type="text"  name="observaciones" value='<%if (cit.getObservaciones()!= null) {out.print(cit.getObservaciones());}else{if(cita.getObservaciones() != null){out.print(cita.getObservaciones());}}%>'/><br>
+                    <textarea rows="4" cols="50"  name="observaciones"><%
+                        if (cit.getObservaciones()!= null) {
+                        out.print(cit.getObservaciones());}else{if(cita.getObservaciones() != null){out.print(cita.getObservaciones());}}%>
+                    </textarea><br>
                     
                     <input class='boton' name="insert" type="submit" value="Actualizar Cita" name="enviar" />
                     <input class='boton' name="insert" type="submit" value="Desactivar Cita" name="enviar" />
