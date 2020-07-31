@@ -133,7 +133,7 @@
                     <input type="number"  name="cantidadMaxima" required="true" value="<%if (pro.getCantidadMaxima()!= 0) {out.print(pro.getCantidadMaxima());}%>"/><br>
                     <label> Precio de la Unidad: </label>
                     <input type="number" name="precio" placeholder="1.00" step="0.01" min="1" required="true" value="<%if (pro.getPrecio()!= 0) {out.print(pro.getPrecio());}%>"/><br>
-                    
+                    <p class="lempira">.Lps </p>
                     <input class='boton' name="insert" type="submit" value="Guardar Producto" name="enviar" />
 
                 </form>

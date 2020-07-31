@@ -111,7 +111,7 @@
             </div>
         </header>
         
-        <div class="principal">
+        <div style="margin-top: 15%;" class="principal">
             <div class="formulario">
                 <center><h2>Actualizar Usuario</h2></center>
                 <form name="formulario" action="../../controladorUsuarios" method="POST">
@@ -156,7 +156,7 @@
             </div>
         </div>
         
-        <footer>
+        <footer style="bottom: 0">
              <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
              <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
              <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>

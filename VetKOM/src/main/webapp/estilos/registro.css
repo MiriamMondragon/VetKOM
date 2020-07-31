@@ -39,10 +39,12 @@ body:before{
 }
 
 div.principal{
+    min-height: calc(100% - 7rem);
     margin-left: 20%;
     margin-right: 20%;
+    /* Margenes 
     margin-top: 15%;
-    margin-bottom: 15%;
+    margin-bottom: 15%;*/
     background-color: #FDDFAB;
 }
 
@@ -54,8 +56,9 @@ center{
 }
 
 form{
+    /*
     padding-top: 6%;
-    /*padding-left: 38%; Padding para poner label y debajo el input*/
+    padding-left: 38%; Padding para poner label y debajo el input*/
     /*Poner label al par del inptu*/
     padding-left: 28%;
 }
@@ -66,7 +69,7 @@ label{
     /*Poner label al par del input*/
     width: 150px;
     margin: 10px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 input{
@@ -85,6 +88,7 @@ input.boton{
     padding: 10px;
     border-radius: 5px;
     font-weight: bold;
+    margin-top: 10px; 
     margin-bottom: 30px;
 }
 
@@ -158,6 +162,28 @@ div.botonRegistro{
     padding-left: 50px;
 }
 
-div.detalles{
-    margin-left: 17em;
+center.detalles{
+    background-color: transparent;
+    color: black;
+    margin-right: 0em;
+}
+
+input[name="subTotal"], input[name="total"], input[name="precio"] {
+    text-align: right;
+}
+
+p.lempira{
+    text-transform: lowercase;
+    margin-top: -30px;
+    margin-left: 26.5em;
+}
+
+p.lempira{
+    text-transform: lowercase;
+    margin-top: -30px;
+    margin-left: 26.5em;
+}
+
+footer{
+    position: absolute;
 }

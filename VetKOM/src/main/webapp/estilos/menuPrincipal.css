@@ -109,6 +109,7 @@ nav{
 }
 
 div.principal{
+    min-height: calc(100% - 6rem);
     margin-top: 10em;
 }
 
@@ -306,6 +307,7 @@ input[id="3"]:checked ~ .paginacion-slider .paginacion-item[for="3"]{
 }
 
 body{
+    height: 100%;
     font-family: 'Patua One', cursive;
     /*background-image: url(../imagenes/fondo.jpg);*/
 }
@@ -380,15 +382,14 @@ footer{
     margin-bottom: 2em;
     text-align: justify;
     font-size: 1px;
-    /*
     position: absolute;
-    width: 100%;*/
+    width: 100%;
 }
 
 footer p{
     font-size: 20px;
     margin-left: 23em;
-    margin-top: -40px;
+    margin-top: -35px;
     margin-bottom: 20px;
 }
 

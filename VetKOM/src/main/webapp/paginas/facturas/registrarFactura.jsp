@@ -189,10 +189,11 @@
                     
                     <label> SubTotal: </label>
                     <input type="number" name="subTotal" placeholder="1.00" step="0.01" min="1" required="true" readonly="true" value='<%if (fac.getSubtotal()!= 0) {out.print(fac.getSubtotal());}%>'/><br>
-
+                    <p class="lempira">.Lps </p>
+                    
                     <label> Total: </label>
                     <input type="number" name="total" placeholder="1.00" step="0.01" min="1" required="true" readonly="true" value='<%if (fac.getTotal()!= 0) {out.print(fac.getTotal());}%>'/><br>
-
+                    <p class="lempira">.Lps </p>
                     
                     <input class='boton' name="insert" type="submit" value="Guardar Factura" />
 

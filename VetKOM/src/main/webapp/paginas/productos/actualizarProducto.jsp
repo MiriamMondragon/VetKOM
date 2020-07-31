@@ -149,7 +149,7 @@
                     <input type="number" name="precio" placeholder="1.00" step="0.01" min="1" required="true" value='<%if (pro.getPrecio() != 0) {
                             out.print(pro.getPrecio());
                         }else{out.print(producto.getPrecio());}%>'/><br>
-                    
+                    <p class="lempira">.Lps </p>
                     
                     <input class='boton' name="insert" type="submit" value="Actualizar Producto" name="enviar" />
                     <input class='boton' name="insert" type="submit" value="Desactivar Producto" name="enviar" />

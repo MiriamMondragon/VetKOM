@@ -103,7 +103,7 @@
                 </nav>
             </div>
         </header>
-        <div class="principal">
+        <div style="margin-top: 15%;" class="principal">
             <div class="formulario">
                 <center><h2>Añadir Servicio</h2></center>
                 <form name="formulario" action="../../controladorServicios" method="POST">
@@ -114,14 +114,14 @@
                     <input type="text"  name="nombreServicio" required="true" maxlength="50" value='<%if (ser.getNombre() != null) {out.print(ser.getNombre());}%>'/><br>
                     <label> Precio del Servicio: </label>
                     <input type="number" name="precio" placeholder="1.00" step="0.01" min="1" required="true" value="<%if (ser.getPrecio()!= 0) {out.print(ser.getPrecio());}%>"/><br>
-                    
+                    <p class="lempira">.Lps </p>
                     <input class='boton' name="insert" type="submit" value="Guardar Servicio" name="enviar" />
 
                 </form>
             </div>
         </div>
 
-        <footer>
+        <footer style="bottom: 0">
              <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
              <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
              <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
