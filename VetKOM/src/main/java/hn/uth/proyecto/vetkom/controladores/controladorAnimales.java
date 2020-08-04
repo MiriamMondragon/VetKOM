@@ -8,7 +8,6 @@ package hn.uth.proyecto.vetkom.controladores;
 import hn.uth.proyecto.vetkom.objetos.Animal;
 import hn.uth.proyecto.vetkom.repositorios.AnimalRepositorio;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -62,7 +61,7 @@ public class controladorAnimales extends HttpServlet {
                             animalRepo.crear(animal);
                             String msExito = "Registro añadido exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/animales/registrarAnimal.jsp");
                         }
@@ -83,7 +82,7 @@ public class controladorAnimales extends HttpServlet {
                             animalRepo.actualizar(animal);
                             String msExito = "Registro actualizado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/animales/actualizarAnimal.jsp");
                         }
@@ -103,7 +102,7 @@ public class controladorAnimales extends HttpServlet {
                             animalRepo.desactivar(animal);
                             String msExito = "Registro desactivado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/animales/actualizarAnimal.jsp");
                         }

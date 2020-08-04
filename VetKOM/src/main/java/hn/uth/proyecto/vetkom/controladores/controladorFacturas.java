@@ -7,6 +7,7 @@ package hn.uth.proyecto.vetkom.controladores;
 
 import hn.uth.proyecto.vetkom.objetos.DetalleFactura;
 import hn.uth.proyecto.vetkom.objetos.Factura;
+import hn.uth.proyecto.vetkom.objetos.Usuario;
 import hn.uth.proyecto.vetkom.repositorios.FacturaRepositorio;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -49,7 +50,7 @@ public class controladorFacturas extends HttpServlet {
             String subTotal = request.getParameter("subTotal");
             String total = request.getParameter("total");
             //CAMBIAR A OBTENER ATRIBUTO DE SESION
-            String usuario = "miriam.mondragon";
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");
 
             String submit = request.getParameter("insert");
 
@@ -68,7 +69,7 @@ public class controladorFacturas extends HttpServlet {
 
             if (submit != null && (submit.equals("Guardar Factura") || submit.equals("Actualizar Factura") || submit.equals("Anular Factura") || submit.equals("+"))) {
 
-                Factura factura = recuperarFactura(idFactura, idCita, fecha, idMetodoPago, subTotal, total, usuario);
+                Factura factura = recuperarFactura(idFactura, idCita, fecha, idMetodoPago, subTotal, total, usuario.getUsuario());
                 if (submit.equals("+")) {
                     try {
                         DetalleFactura detalle = recuperarDetalle(idFactura, tipoConcepto, idConcepto, idDescuento, idImpuesto);
@@ -103,7 +104,7 @@ public class controladorFacturas extends HttpServlet {
                             facturaRepo.cerrarFactura(factura);
                             String msExito = "Registro añadido exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/facturas/registrarFactura.jsp");
                         }
@@ -116,7 +117,7 @@ public class controladorFacturas extends HttpServlet {
                     }
 
                 }
-                
+
                 if (accion.equals(servletConfiguracion.ACCION_ACTUALIZAR) && submit.equals("Anular Factura")) {
                     try {
                         if (factura.getIdFactura() != 0) {
@@ -124,7 +125,7 @@ public class controladorFacturas extends HttpServlet {
                             facturaRepo.anularFactura(factura);
                             String msExito = "Registro anulado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/facturas/actualizarFactura.jsp");
                         }
@@ -139,7 +140,7 @@ public class controladorFacturas extends HttpServlet {
 
             } else {
 
-                Factura factura1 = recuperarFactura(idFactura, idCita, fecha, idMetodoPago, subTotal, total, usuario);
+                Factura factura1 = recuperarFactura(idFactura, idCita, fecha, idMetodoPago, subTotal, total, usuario.getUsuario());
                 FacturaRepositorio facturaRepo = new FacturaRepositorio();
                 DetalleFactura detalle = recuperarDetalle(idFactura, tipoConcepto, idConcepto, idDescuento, idImpuesto);
                 factura1.setSubtotal(facturaRepo.getSubTotal(factura1));

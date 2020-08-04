@@ -9,13 +9,18 @@ import java.util.List;
 
 /**
  *
- * @author pccinho
+ * @author Miriam
  */
 public interface Repositorio<T> {
-    public void crear(T t) throws Exception ;
-    public void desactivar(T t) throws Exception ;
-    public void actualizar(T t) throws Exception ;
-    
-    public T buscar(Object id) throws Exception ;
-    public List<T> buscarTodo() throws Exception ;
+
+    public void crear(T t) throws Exception;
+
+    public void desactivar(T t) throws Exception;
+
+    public void actualizar(T t) throws Exception;
+
+    public T buscar(Object id) throws Exception;
+
+    public List<T> buscarTodo() throws Exception;
+
 }

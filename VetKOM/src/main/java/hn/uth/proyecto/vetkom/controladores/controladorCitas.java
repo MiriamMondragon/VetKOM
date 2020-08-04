@@ -60,7 +60,7 @@ public class controladorCitas extends HttpServlet {
                             citaRepo.crear(cita);
                             String msExito = "Registro añadido exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/citas/registrarCita.jsp");
                         }
@@ -80,7 +80,7 @@ public class controladorCitas extends HttpServlet {
                             citaRepo.actualizar(cita);
                             String msExito = "Registro actualizado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/citas/actualizarCita.jsp");
                         }
@@ -92,7 +92,7 @@ public class controladorCitas extends HttpServlet {
                     }
 
                 }
-                
+
                 if (accion.equals(servletConfiguracion.ACCION_ACTUALIZAR) && submit.equals("Desactivar Cita")) {
                     try {
                         if (cita.getIdCita() != 0) {
@@ -100,7 +100,7 @@ public class controladorCitas extends HttpServlet {
                             citaRepo.desactivar(cita);
                             String msExito = "Registro desactivado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/citas/actualizarCita.jsp");
                         }
@@ -199,8 +199,8 @@ public class controladorCitas extends HttpServlet {
         return cita;
     }
 
-    private Cita recuperarCitaNoInsert(String idCita, String idDuenio, String idAnimal, String idServicio, String idEmpleado, String fechaIngreso
-,            String fechaCita, String horaCita, String noSala, String idEstado, String observaciones) {
+    private Cita recuperarCitaNoInsert(String idCita, String idDuenio, String idAnimal, String idServicio, String idEmpleado, String fechaIngreso,
+             String fechaCita, String horaCita, String noSala, String idEstado, String observaciones) {
         Cita cita = new Cita();
         try {
             Date fechaRegistroDate = null;

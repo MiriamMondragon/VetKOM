@@ -4,6 +4,7 @@
     Author     : Miriam
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Usuario"%>
 <%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="hn.uth.proyecto.vetkom.controladores.controladorPrincipal"%>
@@ -29,28 +30,39 @@
         } else {
             action = (String) request.getSession().getAttribute("action");
         }
-        
-        EmpleadoRepositorio ep = new EmpleadoRepositorio();
-        Empleado empleado = ep.buscar(1);
+
+        Empleado empleadoSesion = new Empleado();
+        if (request.getSession().getAttribute("empleadoSesion") != null) {
+            empleadoSesion = (Empleado) request.getSession().getAttribute("empleadoSesion");
+        }
+        Usuario usuarioSesion = new Usuario();
+        if (request.getSession().getAttribute("usuarioSesion") != null) {
+            usuarioSesion = (Usuario) request.getSession().getAttribute("usuarioSesion");
+        }
     %>
 
+    <script type="text/javascript">
+        history.forward();
+    </script>
+    
     <body>
 
         <header class="encabezado">
             <div class="encabezadoMenu">
                 <nav class="menu">
                     <a href="../menuPrincipal.jsp"><img class="logoMenu" src="../imagenes/Logo2.png"></a>
-                    
-                    <a class="empleadoMenu" href="usuarios/verPerfil.jsp"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
-                    <a href="usuarios/verPerfil.jsp"><img class="perfilMenu" ></a>
+
+                    <a class="empleadoMenu" href="usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><p class="empleadoMenu"><%=empleadoSesion.getNombres()%></p></a>
+
+                    <a href="usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><img class="perfilMenu" ></a>
 
                     <ul>
                         <li><a href="../menuPrincipal.jsp">Inicio</a></li>
                         <li><p>Citas</p>
-                          <ul>
-                            <li><a href="../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
-                            <li><a href="../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
-                          </ul>
+                            <ul>
+                                <li><a href="../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
+                                <li><a href="../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
+                            </ul>
                         </li>
                         <li><p>Facturas</p>
                             <ul>
@@ -96,8 +108,8 @@
                         </li>
                         <li><p>▼</p>
                             <ul>
-                                <li><a href="usuarios/verPerfil.jsp">Ver Perfil</a></li>
-                                <li><a href="../index.jsp">Cerrar Sesión</a></li>
+                                <li><a href="usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>">Ver Perfil</a></li>
+                                <li><a href="../cerrarSesion">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul> 
@@ -118,16 +130,16 @@
                     controladorPrincipal cP = new controladorPrincipal();
                     String filtro = request.getParameter("filtro");
                     if (filtro != null) {
-                        out.print(cP.getTablaFromBuscador(filtro, action)+ "</table>");
+                        out.print(cP.getTablaFromBuscador(filtro, action) + "</table>");
                     }
                 %>
             </div>
         </div>
-            
+
         <footer style="bottom: 0">
-             <a href="../menuPrincipal.jsp"><img class="imagenFooter" src="../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
-             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
-             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+            <a href="../menuPrincipal.jsp"><img class="imagenFooter" src="../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+            <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+            <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
         </footer>
     </body>
 </html>

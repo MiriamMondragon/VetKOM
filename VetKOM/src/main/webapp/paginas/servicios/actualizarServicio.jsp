@@ -4,6 +4,7 @@
     Author     : Miriam
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Usuario"%>
 <%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.ServicioRepositorio"%>
@@ -20,37 +21,48 @@
         <link rel="stylesheet" href="../../estilos/registro.css">
         <title>Actualizar Servicio</title>
     </head>
+    
+    <script type="text/javascript">
+        history.forward();
+    </script>
+    
     <body>
         <%
             String idServicio = request.getParameter("idServicio");
             Servicio servicio = new Servicio();
-            if(idServicio != null && idServicio.equals("")== false){
+            if (idServicio != null && idServicio.equals("") == false) {
                 ServicioRepositorio sR = new ServicioRepositorio();
                 int id = Integer.parseInt(idServicio);
                 servicio = sR.buscar(id);
             }
-        Servicio ser = new Servicio();
-        if (request.getSession().getAttribute("servicio") != null) {
-            ser = (Servicio) request.getSession().getAttribute("servicio");
-        }
-        
-        EmpleadoRepositorio ep = new EmpleadoRepositorio();
-        Empleado empleado = ep.buscar(1);
+            Servicio ser = new Servicio();
+            if (request.getSession().getAttribute("servicio") != null) {
+                ser = (Servicio) request.getSession().getAttribute("servicio");
+            }
+            
+            Empleado empleadoSesion = new Empleado();
+            if (request.getSession().getAttribute("empleadoSesion") != null) {
+                empleadoSesion = (Empleado) request.getSession().getAttribute("empleadoSesion");
+            }
+            Usuario usuarioSesion = new Usuario();
+            if (request.getSession().getAttribute("usuarioSesion") != null) {
+                usuarioSesion = (Usuario) request.getSession().getAttribute("usuarioSesion");
+            }
         %>
-        
+
         <header class="encabezado">
             <div class="encabezadoMenu">
                 <nav class="menu">
                     <a href="../../menuPrincipal.jsp"><img class="logoMenu" src="../../imagenes/Logo2.png"></a>
-                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
-                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><img class="perfilMenu" ></a>
+                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><p class="empleadoMenu"><%=empleadoSesion.getNombres()%></p></a>
+                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><img class="perfilMenu" ></a>
                     <ul>
                         <li><a href="../../menuPrincipal.jsp">Inicio</a></li>
                         <li><p>Citas</p>
-                          <ul>
-                            <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
-                            <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
-                          </ul>
+                            <ul>
+                                <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
+                            </ul>
                         </li>
                         <li><p>Facturas</p>
                             <ul>
@@ -96,7 +108,7 @@
                         </li>
                         <li><p>▼</p>
                             <ul>
-                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon">Ver Perfil</a></li>
+                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>">Ver Perfil</a></li>
                                 <li><a href="../../index.jsp">Cerrar Sesión</a></li>
                             </ul>
                         </li>
@@ -104,23 +116,31 @@
                 </nav>
             </div>
         </header>
-        
+
         <div  style="margin-top: 15%;" class="principal">
             <div class="formulario">
                 <center><h2>Actualizar Servicio</h2></center>
                 <form name="formulario" action="../../controladorServicios" method="POST">
                     <input type="text"  name="accion" value="actualizar" hidden="true"/>
                     <label> No.Servicio: </label>
-                    <input type="number"  name="idServicio" readonly="true" value="<%if (ser.getIdServicio()!= 0) {out.print(ser.getIdServicio());}else{out.print(servicio.getIdServicio());}%>"/><br>
+                    <input type="number"  name="idServicio" readonly="true" value="<%if (ser.getIdServicio() != 0) {out.print(ser.getIdServicio());} else {out.print(servicio.getIdServicio());}%>"/><br>
                     <label> Nombre del Servicio: </label>
-                    <input type="text"  name="nombreServicio" required="true" maxlength="50" value='<%if (ser.getNombre() != null) {out.print(ser.getNombre());}else{out.print(servicio.getNombre());}%>'/><br>
-                    <input type="text"  name="idEstado" value='<%if (ser.getIdEstado()!= 0) {out.print(ser.getIdEstado());}else{out.print(servicio.getIdEstado());}%>' hidden="true"/>
+                    <input type="text"  name="nombreServicio" required="true" maxlength="50" value='<%if (ser.getNombre() != null) {out.print(ser.getNombre());} else {out.print(servicio.getNombre());}%>'/><br>
+                   
+                    <input type="text"  name="idEstado" value='<%if (ser.getIdEstado() != 0) {
+                            out.print(ser.getIdEstado());
+                        } else {
+                            out.print(servicio.getIdEstado());
+                        }%>' hidden="true"/>
+                  
                     <label> Precio del Servicio: </label>
                     <input type="number" name="precio" placeholder="1.00" step="0.01" min="1" required="true" value='<%if (ser.getPrecio() != 0) {
                             out.print(ser.getPrecio());
-                        }else{out.print(servicio.getPrecio());}%>'/><br>
+                        } else {
+                            out.print(servicio.getPrecio());
+                        }%>'/><br>
                     <p class="lempira">.Lps </p>
-                    
+
                     <input class='boton' name="insert" type="submit" value="Actualizar Servicio" name="enviar" />
                     <input class='boton' name="insert" type="submit" value="Desactivar Servicio" name="enviar" />
 
@@ -128,9 +148,9 @@
             </div>
         </div>
         <footer style="bottom: 0">
-             <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
-             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
-             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+            <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+            <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+            <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
         </footer> 
     </body>
 </html>

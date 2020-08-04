@@ -9,10 +9,10 @@ import java.util.Date;
 
 /**
  *
- * @author karol
+ * @author Karol
  */
 public class Animal {
-    
+
     private int idAnimal;
     private String nombre;
     private int idRaza;

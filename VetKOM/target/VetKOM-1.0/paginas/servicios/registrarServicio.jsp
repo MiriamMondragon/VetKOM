@@ -4,6 +4,7 @@
     Author     : Miriam
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Usuario"%>
 <%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.ServicioRepositorio"%>
@@ -20,7 +21,11 @@
         <link rel="stylesheet" href="../../estilos/registro.css">
         <title>Añadir Servicio</title>
     </head>
-    </head>
+    
+    <script type="text/javascript">
+        history.forward();
+    </script>
+    
     <%
         Servicio ser = new Servicio();
         if (request.getSession().getAttribute("servicio") != null) {
@@ -33,16 +38,22 @@
             numero = sR.getIdentity();
         }
         
-        EmpleadoRepositorio ep = new EmpleadoRepositorio();
-        Empleado empleado = ep.buscar(1);
+        Empleado empleadoSesion = new Empleado();
+        if (request.getSession().getAttribute("empleadoSesion") != null) {
+            empleadoSesion = (Empleado) request.getSession().getAttribute("empleadoSesion");
+        }
+        Usuario usuarioSesion = new Usuario();
+        if (request.getSession().getAttribute("usuarioSesion") != null) {
+            usuarioSesion = (Usuario) request.getSession().getAttribute("usuarioSesion");
+        }
     %>
     <body>
         <header class="encabezado">
             <div class="encabezadoMenu">
                 <nav class="menu">
                     <a href="../../menuPrincipal.jsp"><img class="logoMenu" src="../../imagenes/Logo2.png"></a>
-                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
-                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><img class="perfilMenu" ></a>
+                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><p class="empleadoMenu"><%=empleadoSesion.getNombres()%></p></a>
+                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><img class="perfilMenu" ></a>
                     <ul>
                         <li><a href="../../menuPrincipal.jsp">Inicio</a></li>
                         <li><p>Citas</p>
@@ -95,7 +106,7 @@
                         </li>
                         <li><p>▼</p>
                             <ul>
-                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon">Ver Perfil</a></li>
+                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>">Ver Perfil</a></li>
                                 <li><a href="../../index.jsp">Cerrar Sesión</a></li>
                             </ul>
                         </li>

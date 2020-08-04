@@ -65,7 +65,7 @@ public class controladorEmpleados extends HttpServlet {
                             empleadoRepo.crear(empleado);
                             String msExito = "Registro añadido exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/empleados/registrarEmpleado.jsp");
                         }
@@ -87,7 +87,7 @@ public class controladorEmpleados extends HttpServlet {
                             empleadoRepo.actualizar(empleado);
                             String msExito = "Registro actualizado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/empleados/actualizarEmpleado.jsp");
                         }
@@ -108,7 +108,7 @@ public class controladorEmpleados extends HttpServlet {
                             empleadoRepo.desactivar(empleado);
                             String msExito = "Registro desactivado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/empleados/actualizarEmpleado.jsp");
                         }

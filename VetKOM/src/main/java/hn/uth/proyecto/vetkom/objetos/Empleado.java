@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Miriam
  */
 public class Empleado {
-    
+
     private int idEmpleado;
     private String nombres;
     private String apellidos;
@@ -160,6 +160,4 @@ public class Empleado {
         this.telefonos = telefonos;
     }
 
-    
-    
 }

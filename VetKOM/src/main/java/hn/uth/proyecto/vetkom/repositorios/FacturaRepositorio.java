@@ -8,8 +8,8 @@ package hn.uth.proyecto.vetkom.repositorios;
 import hn.uth.proyecto.vetkom.objetos.DetalleFactura;
 import hn.uth.proyecto.vetkom.objetos.DetalleRecuperado;
 import hn.uth.proyecto.vetkom.objetos.Factura;
+import static hn.uth.proyecto.vetkom.repositorios.Conexion.getConnection;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,34 +18,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Miriam
  */
 public class FacturaRepositorio {
-
-    public Connection getConnection() throws Exception {
-        try {
-
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FacturaRepositorio.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            String connectionUrl = "jdbc:sqlserver://DESKTOP-81AR53A\\SQLEXPRESS2017:1433;databaseName=BD2_Veterinaria";
-            return DriverManager.getConnection(connectionUrl, "sa", "kp198103");
-            
-            //String connectionUrl = "jdbc:sqlserver://DESKTOP-R7UAJG0\\SQLEXPRESS01:1433;databaseName=BD2_Veterinaria";
-            //return DriverManager.getConnection(connectionUrl, "sa", "Sephiroth51342");
-
-        } catch (SQLException e) {
-            throw new Exception("No se pudo establecer la conexión: " + e.toString());
-        }
-    }
 
     public void abrirFactura(Factura t) throws Exception {
         try {
@@ -138,7 +116,7 @@ public class FacturaRepositorio {
             throw new Exception("Error al anular: " + e.toString());
         }
     }
-    
+
     public Factura buscar(Object id) throws Exception {
         Factura valorRetorno = new Factura();
         try {

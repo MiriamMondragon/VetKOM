@@ -68,6 +68,4 @@ public class DetalleFactura {
         this.idImpuesto = idImpuesto;
     }
 
-     
-    
 }

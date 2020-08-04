@@ -64,7 +64,7 @@ public class controladorClientes extends HttpServlet {
                             clienteRepo.crear(cliente);
                             String msExito = "Registro añadido exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/clientes/registrarCliente.jsp");
                         }
@@ -86,7 +86,7 @@ public class controladorClientes extends HttpServlet {
                             clienteRepo.actualizar(cliente);
                             String msExito = "Registro actualizado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/clientes/actualizarCliente.jsp");
                         }
@@ -107,7 +107,7 @@ public class controladorClientes extends HttpServlet {
                             clienteRepo.desactivar(cliente);
                             String msExito = "Registro desactivado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/clientes/actualizarCliente.jsp");
                         }
@@ -124,7 +124,7 @@ public class controladorClientes extends HttpServlet {
 
             } else {
 
-                Cliente cliente = recuperarClienteNoInsert(idCliente, nombres, apellidos, fechaRegistro, fechaNacimiento, idGenero, direccion, pais, 
+                Cliente cliente = recuperarClienteNoInsert(idCliente, nombres, apellidos, fechaRegistro, fechaNacimiento, idGenero, direccion, pais,
                         departamento, ciudad, ruta, telefonos, correos);
                 int idPais = 0;
                 int idDepto = 0;
@@ -240,7 +240,6 @@ public class controladorClientes extends HttpServlet {
     private void ir(HttpServletRequest request, HttpServletResponse response, String url) throws ServletException, IOException {
         response.sendRedirect(url);
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -4,6 +4,7 @@
     Author     : Miriam
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Usuario"%>
 <%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -22,37 +23,48 @@
         <link rel="stylesheet" href="../../estilos/registro.css">
         <title>Registrar Cita</title>
     </head>
+    
+    <script type="text/javascript">
+        history.forward();
+    </script>
+    
     <%
         controladorDatosBD cL = new controladorDatosBD();
-        //action="../../controladorEmpleados"
+        
         Cita cit = new Cita();
         if (request.getSession().getAttribute("cita") != null) {
             cit = (Cita) request.getSession().getAttribute("cita");
         }
-        
+
         CitaRepositorio cR = new CitaRepositorio();
         int numero = 0;
-        if(cR.getIdentity() != 0){
+        if (cR.getIdentity() != 0) {
             numero = cR.getIdentity();
         }
-        
-        EmpleadoRepositorio ep = new EmpleadoRepositorio();
-        Empleado empleado = ep.buscar(1);
+
+        Empleado empleadoSesion = new Empleado();
+        if (request.getSession().getAttribute("empleadoSesion") != null) {
+            empleadoSesion = (Empleado) request.getSession().getAttribute("empleadoSesion");
+        }
+        Usuario usuarioSesion = new Usuario();
+        if (request.getSession().getAttribute("usuarioSesion") != null) {
+            usuarioSesion = (Usuario) request.getSession().getAttribute("usuarioSesion");
+        }
     %>
     <body>
         <header class="encabezado">
             <div class="encabezadoMenu">
                 <nav class="menu">
                     <a href="../../menuPrincipal.jsp"><img class="logoMenu" src="../../imagenes/Logo2.png"></a>
-                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
-                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><img class="perfilMenu" ></a>
+                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><p class="empleadoMenu"><%=empleadoSesion.getNombres()%></p></a>
+                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><img class="perfilMenu" ></a>
                     <ul>
                         <li><a href="../../menuPrincipal.jsp">Inicio</a></li>
                         <li><p>Citas</p>
-                          <ul>
-                            <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
-                            <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
-                          </ul>
+                            <ul>
+                                <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
+                            </ul>
                         </li>
                         <li><p>Facturas</p>
                             <ul>
@@ -98,7 +110,7 @@
                         </li>
                         <li><p>▼</p>
                             <ul>
-                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon">Ver Perfil</a></li>
+                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>">Ver Perfil</a></li>
                                 <li><a href="../../index.jsp">Cerrar Sesión</a></li>
                             </ul>
                         </li>
@@ -113,7 +125,7 @@
                 <form name="formulario" action="../../controladorCitas" method="POST">
                     <input type="text"  name="accion" value="nuevo" hidden="true"/>
                     <label> No. Cita: </label>
-                    <input type="number"  name="idCita"readonly="true" value="<%if (cit.getIdCita()!= 0) {out.print(cit.getIdCita());}else{out.print(numero);}%>"/><br>
+                    <input type="number"  name="idCita"readonly="true" value="<%if (cit.getIdCita() != 0) {out.print(cit.getIdCita());} else {out.print(numero);}%>"/><br>
                     <label> Cliente: </label>
                     <select name="idDuenio" onchange="formulario.submit()">
                         <%out.print(cL.getOpcionesClienteDuenio(cit.getIdDuenio()));%>
@@ -131,30 +143,31 @@
                     <select name="idEmpleado" required="true">
                         <%out.print(cL.getOpcionesPersonal(cit.getIdServicioSolicitado(), cit.getIdEmpleado()));%>
                     </select><br>
-                    
+
                     <label> Fecha de la Cita: </label>
                     <input type="date" name="fechaCita" required="true" value='<%
-                        if (cit.getFechaCita()!= null) {
+                        if (cit.getFechaCita() != null) {
                             String fechaFinalDate = new SimpleDateFormat("yyyy-MM-dd").format(cit.getFechaCita());
                             out.print(fechaFinalDate);
                         }
                            %>'/><br>
                     <label> Hora de la Cita: </label>
                     <input type="time" name="horaCita" min="09:00" max="18:00" required="true" value="<%
-                        if(cit.getHoraCita() != null && cit.getHoraCita().equals("")== false){out.print(cit.getHoraCita());}%>"><br>
-                    
+                        if (cit.getHoraCita() != null && cit.getHoraCita().equals("") == false) {
+                            out.print(cit.getHoraCita());
+                        }%>"><br>
+
                     <label> No. Sala: </label>
-                    <input type="number"  name="noSala" required="true" value="<%if (cit.getNoSala()!= 0) {out.print(cit.getNoSala());}%>"/><br>
+                    <input type="number"  name="noSala" required="true" value="<%if (cit.getNoSala() != 0) {out.print(cit.getNoSala());}%>"/><br>
                     <label> Estado: </label>
                     <select name="idEstado" required="true" >
                         <%out.print(cL.getOpcionesEstados(cit.getIdEstado()));%>
                     </select><br>
-                    
+
                     <label> Observaciones: </label>
-                    <textarea rows="4" cols="50"  name="observaciones"><%if (cit.getObservaciones()!= null) {
-                        out.print(cit.getObservaciones());}%>
+                    <textarea rows="4" cols="50"  name="observaciones"><%if (cit.getObservaciones() != null) {out.print(cit.getObservaciones());}%>
                     </textarea><br>
-                    
+
                     <input class='boton' name="insert" type="submit" value="Guardar Cita" name="enviar" />
 
                 </form>
@@ -162,9 +175,9 @@
         </div>
 
         <footer>
-             <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
-             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
-             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+            <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+            <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+            <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
         </footer>   
     </body>
 </html>

@@ -441,7 +441,7 @@ public class controladorDatosBD {
         }
         return opcion;
     }
-    
+
     public String getOpcionesCitasTodas(int seleccionado) {
         Hashtable citas = new Hashtable();
         String opcion = "";

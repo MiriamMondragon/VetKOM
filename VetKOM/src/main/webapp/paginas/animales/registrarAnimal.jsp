@@ -4,6 +4,7 @@
     Author     : karol
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Usuario"%>
 <%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -22,9 +23,14 @@
         <link rel="stylesheet" href="../../estilos/registro.css">
         <title>Registrar Animal</title>
     </head>
+    
+    <script type="text/javascript">
+        history.forward();
+    </script>
+    
     <%
         controladorDatosBD cL = new controladorDatosBD();
-        //action="../../controladorEmpleados"
+        
         Animal ani = new Animal();
         if (request.getSession().getAttribute("animal") != null) {
             ani = (Animal) request.getSession().getAttribute("animal");
@@ -33,7 +39,7 @@
         int idRaza = 0;
         int idColor = 0;
         String idClienteDuenio = "";
-        
+
         if (request.getSession().getAttribute("idEspecie") != null && request.getSession().getAttribute("idEspecie").equals("") == false) {
             String especie = String.valueOf(request.getSession().getAttribute("idEspecie"));
             idEspecie = Integer.valueOf(especie);
@@ -52,27 +58,33 @@
         }
         AnimalRepositorio aN = new AnimalRepositorio();
         int numero = 0;
-        if(aN.getIdentity() != 0){
+        if (aN.getIdentity() != 0) {
             numero = aN.getIdentity();
         }
-        
-        EmpleadoRepositorio ep = new EmpleadoRepositorio();
-        Empleado empleado = ep.buscar(1);
+
+        Empleado empleadoSesion = new Empleado();
+        if (request.getSession().getAttribute("empleadoSesion") != null) {
+            empleadoSesion = (Empleado) request.getSession().getAttribute("empleadoSesion");
+        }
+        Usuario usuarioSesion = new Usuario();
+        if (request.getSession().getAttribute("usuarioSesion") != null) {
+            usuarioSesion = (Usuario) request.getSession().getAttribute("usuarioSesion");
+        }
     %>
     <body>
         <header class="encabezado">
             <div class="encabezadoMenu">
                 <nav class="menu">
                     <a href="../../menuPrincipal.jsp"><img class="logoMenu" src="../../imagenes/Logo2.png"></a>
-                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
-                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><img class="perfilMenu" ></a>
+                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><p class="empleadoMenu"><%=empleadoSesion.getNombres()%></p></a>
+                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><img class="perfilMenu" ></a>
                     <ul>
                         <li><a href="../../menuPrincipal.jsp">Inicio</a></li>
                         <li><p>Citas</p>
-                          <ul>
-                            <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
-                            <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
-                          </ul>
+                            <ul>
+                                <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
+                            </ul>
                         </li>
                         <li><p>Facturas</p>
                             <ul>
@@ -118,7 +130,7 @@
                         </li>
                         <li><p>▼</p>
                             <ul>
-                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon">Ver Perfil</a></li>
+                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>">Ver Perfil</a></li>
                                 <li><a href="../../index.jsp">Cerrar Sesión</a></li>
                             </ul>
                         </li>
@@ -133,7 +145,7 @@
                 <form name="formulario" action="../../controladorAnimales" method="POST">
                     <input type="text"  name="accion" value="nuevo" hidden="true"/>
                     <label> No.Animal: </label>
-                    <input type="number"  name="idAnimal" readonly="true" value="<%if (ani.getIdAnimal()!= 0) {out.print(ani.getIdAnimal());}else{out.print(numero);}%>"/><br>
+                    <input type="number"  name="idAnimal" readonly="true" value="<%if (ani.getIdAnimal() != 0) {out.print(ani.getIdAnimal());} else {out.print(numero);}%>"/><br>
                     <label> Nombre: </label>
                     <input type="text"  name="nombreAnimal" required="true" maxlength="50" value='<%if (ani.getNombre() != null) {out.print(ani.getNombre());}%>'/><br>   
                     <label> Especie: </label>
@@ -156,10 +168,9 @@
                         if (ani.getFechaNacimiento() != null) {
                             String fechaFinalDate = new SimpleDateFormat("yyyy-MM-dd").format(ani.getFechaNacimiento());
                             out.print(fechaFinalDate);
-                        }
-                           %>'/><br>
+                        }%>'/><br>
                     <label> Tipo de Sangre: </label>
-                    <input type="text"  name="tipoSangre" required="true" maxlength="50" value='<%if (ani.getTipoSangre()!= null) {out.print(ani.getTipoSangre());}%>'/><br>
+                    <input type="text"  name="tipoSangre" required="true" maxlength="50" value='<%if (ani.getTipoSangre() != null) {out.print(ani.getTipoSangre());}%>'/><br>
                     <label> Genero: </label>
                     <select name="genero" required="true">
                         <option value="">Debe seleccionar un Genero</option>
@@ -188,9 +199,9 @@
         </div>
 
         <footer>
-             <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
-             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
-             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+            <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+            <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+            <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
         </footer>   
     </body>
 </html>

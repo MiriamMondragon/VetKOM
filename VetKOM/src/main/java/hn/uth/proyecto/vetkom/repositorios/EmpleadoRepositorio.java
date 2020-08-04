@@ -6,43 +6,21 @@
 package hn.uth.proyecto.vetkom.repositorios;
 
 import hn.uth.proyecto.vetkom.objetos.Empleado;
+import static hn.uth.proyecto.vetkom.repositorios.Conexion.getConnection;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Miriam
  */
 public class EmpleadoRepositorio implements Repositorio<Empleado> {
-
-    public Connection getConnection() throws Exception {
-        try {
-
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(EmpleadoRepositorio.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            String connectionUrl = "jdbc:sqlserver://DESKTOP-81AR53A\\SQLEXPRESS2017:1433;databaseName=BD2_Veterinaria";
-            return DriverManager.getConnection(connectionUrl, "sa", "kp198103");
-            
-            //String connectionUrl = "jdbc:sqlserver://DESKTOP-R7UAJG0\\SQLEXPRESS01:1433;databaseName=BD2_Veterinaria";
-            //return DriverManager.getConnection(connectionUrl, "sa", "Sephiroth51342");
-
-        } catch (SQLException e) {
-            throw new Exception("No se pudo establecer la conexión: " + e.toString());
-        }
-    }
 
     @Override
     public void crear(Empleado t) throws Exception {
@@ -200,7 +178,8 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
             cnx.close();
 
         } catch (SQLException e) {
-            throw new Exception("Error al buscar el registro: " + e.toString());
+            throw new Exception("Error al buscar todos: " + e.toString());
+            
         }
         return valorRetorno;
     }
@@ -285,7 +264,7 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
 
             st.close();
             cnx.close();
-            if(valorRetorno == 0){
+            if (valorRetorno == 0) {
                 valorRetorno = 1;
             }
         } catch (Exception e) {

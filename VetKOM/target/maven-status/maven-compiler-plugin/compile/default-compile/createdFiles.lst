@@ -1,3 +1,4 @@
+hn\uth\proyecto\vetkom\controladores\cerrarSesion.class
 hn\uth\proyecto\vetkom\controladores\controladorServicios.class
 hn\uth\proyecto\vetkom\objetos\Cliente.class
 hn\uth\proyecto\vetkom\controladores\controladorFacturas.class
@@ -10,6 +11,7 @@ hn\uth\proyecto\vetkom\repositorios\EmpleadoRepositorio.class
 hn\uth\proyecto\vetkom\repositorios\UsuarioRepositorio.class
 hn\uth\proyecto\vetkom\controladores\controladorEmpleados.class
 hn\uth\proyecto\vetkom\controladores\controladorCitas.class
+hn\uth\proyecto\vetkom\repositorios\Conexion.class
 hn\uth\proyecto\vetkom\repositorios\Repositorio.class
 hn\uth\proyecto\vetkom\controladores\controladorDatosBD.class
 hn\uth\proyecto\vetkom\objetos\DetalleFactura.class

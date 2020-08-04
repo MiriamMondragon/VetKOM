@@ -271,7 +271,7 @@ public class controladorPrincipal {
                         fila += "<td><a href=\"../../controladorFacturas?accion=EliminarDetalle&idFactura=" + idFactura + "&idConcepto=" + detalle.getIdConcepto() + "\"><img class='eliminarDetalle' src=\"../../imagenes/basura.png\"></a></td>";
                         tabla += fila;
                     }
-                    
+
                     //<a href="../../menuPrincipal.jsp"><img class="botonDetalle" src="../../imagenes/basura.png"></a>
                 }
             } catch (Exception ex) {
@@ -280,7 +280,7 @@ public class controladorPrincipal {
         }
         return tabla;
     }
-    
+
     public String verTablaDetalles(int idFactura, Date fecha) {
         String tabla = "";
         if (idFactura != 0) {

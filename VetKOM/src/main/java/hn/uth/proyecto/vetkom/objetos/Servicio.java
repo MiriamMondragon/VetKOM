@@ -10,7 +10,7 @@ package hn.uth.proyecto.vetkom.objetos;
  * @author Miriam
  */
 public class Servicio {
-    
+
     private int idServicio;
     private String nombre;
     private int idEstado;
@@ -57,5 +57,5 @@ public class Servicio {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
+
 }

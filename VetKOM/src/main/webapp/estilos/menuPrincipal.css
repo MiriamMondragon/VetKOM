@@ -11,7 +11,7 @@ and open the template in the editor.
 * {
     padding: 0;
     margin: 0;
-  }
+}
 
 header{
     background-color: #9BFF51;
@@ -32,8 +32,8 @@ nav{
     margin-top: -92px;
     margin-left: 120px;
 }
-  
- /*ENCABEZADO MENU*/
+
+/*ENCABEZADO MENU*/
 
 .encabezadoMenu{ /* encabezado del menu */
     background: #9BD113; /*Color del encabezado (verde)*/
@@ -41,7 +41,7 @@ nav{
     padding-top: 10em;
     margin: auto;
     overflow: hidden;
-    
+
     display: block;
     left: 0;
     top: 0;
@@ -66,7 +66,7 @@ nav{
     padding-left: 30px;
     padding-right: 30px;
 }
-   
+
 .menu ul a { /* enlaces del menu */
     display:block;
     color:#fff;
@@ -76,7 +76,7 @@ nav{
     font-family: 'Patua One', cursive;
     text-transform:uppercase; /*Titulos en Mayusculas*/
 }
-   
+
 .menu ul li:hover { /* efecto al pasar el ratón por los items del menu */
     border-radius: 5px;
     background:rgb(231, 67, 2);
@@ -93,16 +93,16 @@ nav{
     border-radius: 10px;
     padding:0;
 }
-   
+
 .menu ul ul li { /* items del menu desplegable */
     float:none;
     width:120px; /*tamaño del menú desplegable*/
 }
-   
+
 .menu ul ul a { /* enlaces de los items del menu desplegable */
     line-height:120%;
 }
-   
+
 .menu ul li:hover > ul { /* items del menu desplegable al pasar el ratón */
     display:block;
     font-size: 16px;
@@ -167,7 +167,7 @@ a.empleadoMenu{
     text-decoration: none;
     color: white;
     cursor: pointer;
-    
+
 }
 
 p.empleadoMenu:hover{
@@ -339,7 +339,7 @@ body{
     -webkit-transform:scale(0.1);
     transform:scale(0.99);
 }
-	
+
 .iconos:hover img{
     filter: saturate(200%);
 }

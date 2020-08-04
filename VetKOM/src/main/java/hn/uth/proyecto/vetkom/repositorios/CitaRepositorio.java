@@ -6,9 +6,9 @@
 package hn.uth.proyecto.vetkom.repositorios;
 
 import hn.uth.proyecto.vetkom.objetos.Cita;
+import static hn.uth.proyecto.vetkom.repositorios.Conexion.getConnection;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,34 +16,12 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Miriam
  */
 public class CitaRepositorio implements Repositorio<Cita> {
-
-    public Connection getConnection() throws Exception {
-        try {
-
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(CitaRepositorio.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            String connectionUrl = "jdbc:sqlserver://DESKTOP-81AR53A\\SQLEXPRESS2017:1433;databaseName=BD2_Veterinaria";
-            return DriverManager.getConnection(connectionUrl, "sa", "kp198103");
-            
-            //String connectionUrl = "jdbc:sqlserver://DESKTOP-R7UAJG0\\SQLEXPRESS01:1433;databaseName=BD2_Veterinaria";
-            //return DriverManager.getConnection(connectionUrl, "sa", "Sephiroth51342");
-
-        } catch (SQLException e) {
-            throw new Exception("No se pudo establecer la conexión: " + e.toString());
-        }
-    }
 
     @Override
     public void crear(Cita t) throws Exception {
@@ -56,7 +34,6 @@ public class CitaRepositorio implements Repositorio<Cita> {
             ps.setInt(1, t.getIdAnimal());
             ps.setInt(2, t.getIdServicioSolicitado());
             ps.setInt(3, t.getIdEmpleado());
-            //PROPENSO A FALLOS, SER LA PRIMERA REVISION
             ps.setString(4, new SimpleDateFormat("yyyy-MM-dd").format(convertirSqlDate(t.getFechaCita())) + " " + t.getHoraCita());
             ps.setInt(5, t.getNoSala());
             ps.setInt(6, t.getIdEstado());

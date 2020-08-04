@@ -13,7 +13,7 @@ import java.util.Date;
  * @author Miriam
  */
 public class Cliente {
-    
+
     private String idCliente;
     private String nombres;
     private String apellidos;
@@ -140,6 +140,5 @@ public class Cliente {
     public void setTelefonos(String telefonos) {
         this.telefonos = telefonos;
     }
-    
-    
+
 }

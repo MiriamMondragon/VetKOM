@@ -55,7 +55,7 @@ public class controladorProductos extends HttpServlet {
                         productoRepo.crear(producto);
                         String msExito = "Registro añadido exitosamente";
                         request.setAttribute("msExito", msExito);
-                        ir(request, response, "index.jsp");
+                        ir(request, response, "menuPrincipal.jsp");
                     } else {
                         ir(request, response, "paginas/productos/registrarProducto.jsp");
                     }
@@ -75,7 +75,7 @@ public class controladorProductos extends HttpServlet {
                         productoRepo.actualizar(producto);
                         String msExito = "Registro actualizado exitosamente";
                         request.setAttribute("msExito", msExito);
-                        ir(request, response, "index.jsp");
+                        ir(request, response, "menuPrincipal.jsp");
                     } else {
                         ir(request, response, "paginas/productos/actualizarProducto.jsp");
                     }
@@ -94,7 +94,7 @@ public class controladorProductos extends HttpServlet {
                         productoRepo.desactivar(producto);
                         String msExito = "Registro desactivado exitosamente";
                         request.setAttribute("msExito", msExito);
-                        ir(request, response, "index.jsp");
+                        ir(request, response, "menuPrincipal.jsp");
                     } else {
                         ir(request, response, "paginas/productos/actualizarProducto.jsp");
                     }

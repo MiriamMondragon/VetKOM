@@ -4,6 +4,7 @@
     Author     : karol
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Usuario"%>
 <%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="hn.uth.proyecto.vetkom.PruebaConexion"%>
@@ -17,28 +18,39 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="estilos/menuPrincipal.css">
-        
+
         <title>Menú Principal</title>
     </head>
     <%
-        EmpleadoRepositorio ep = new EmpleadoRepositorio();
-        Empleado empleado = ep.buscar(1);
+        Empleado empleadoSesion = new Empleado();
+        if (request.getSession().getAttribute("empleadoSesion") != null) {
+            empleadoSesion = (Empleado) request.getSession().getAttribute("empleadoSesion");
+        }
+        Usuario usuarioSesion = new Usuario();
+        if (request.getSession().getAttribute("usuarioSesion") != null) {
+            usuarioSesion = (Usuario) request.getSession().getAttribute("usuarioSesion");
+        }
     %>
+    
+    <script type="text/javascript">
+        history.forward();
+    </script>
+    
     <body>
         <header class="encabezado">
             <div class="encabezadoMenu">
                 <nav class="menu ">
                     <a href="menuPrincipal.jsp"><img class="logoMenu " src="imagenes/Logo2.png"></a>
-                    <a class="empleadoMenu" href="paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
+                    <a class="empleadoMenu" href="paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><p class="empleadoMenu"><%=empleadoSesion.getNombres()%></p></a>
 
-                    <a href="paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><img class="perfilMenu" ></a>
+                    <a href="paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><img class="perfilMenu" ></a>
                     <ul>
                         <li><a href="menuPrincipal.jsp">Inicio</a></li>
                         <li><p>Citas</p>
-                          <ul>
-                            <li><a href="paginas/citas/registrarCita.jsp">Crear Cita</a></li>
-                            <li><a href="paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
-                          </ul>
+                            <ul>
+                                <li><a href="paginas/citas/registrarCita.jsp">Crear Cita</a></li>
+                                <li><a href="paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
+                            </ul>
                         </li>
                         <li><p>Facturas</p>
                             <ul>
@@ -84,8 +96,8 @@
                         </li>
                         <li><p>▼</p>
                             <ul>
-                                <li><a href="paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon">Ver Perfil</a></li>
-                                <li><a href="index.jsp">Cerrar Sesión</a></li>
+                                <li><a href="paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>">Ver Perfil</a></li>
+                                <li><a href="cerrarSesion">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul> 
@@ -93,7 +105,7 @@
             </div>
         </header>
         <div class="principal">
-            
+
             <div style="z-index: 1" class="contenedorSlider animate__animated animate__pulse"> <!--Slider-->
                 <input type="radio" id="1" name="slider-imagen" hidden />
                 <input type="radio" id="2" name="slider-imagen" hidden />
@@ -123,7 +135,7 @@
                     </label>
                 </div>
             </div>
-            
+
             <div class="servicios">
                 <center style="padding-top:40px">
                     <div class="iconos">
@@ -159,7 +171,7 @@
                             </div>
                         </center>
                     </div>
-                     <div class="iconos">
+                    <div class="iconos">
                         <img src="imagenes/servicios/cortePelo.jpg" alt="Corte de pelo"><br>
                         <span><br>Corte de Pelo</span><br><br>
                         <div class="parrafoServicio">
@@ -197,10 +209,10 @@
             </div>
         </div>
         <footer>
-             <a href="menuPrincipal.jsp"><img class="imagenFooter" src="imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
-             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
-             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+            <a href="menuPrincipal.jsp"><img class="imagenFooter" src="imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+            <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+            <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
         </footer>        
     </body>
-    
+
 </html>

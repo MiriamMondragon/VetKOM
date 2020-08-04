@@ -4,6 +4,7 @@
     Author     : karol
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Usuario"%>
 <%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.AnimalRepositorio"%>
@@ -23,48 +24,58 @@
         <link rel="stylesheet" href="../../estilos/tooltip.css">
         <title>Actualizar Animal</title>
     </head>
+    
+    <script type="text/javascript">
+        history.forward();
+    </script>
+    
     <body>
         <%
             String idAnimal = request.getParameter("idAnimal");
             Animal animal = new Animal();
-            if(idAnimal != null && idAnimal.equals("")== false){
+            if (idAnimal != null && idAnimal.equals("") == false) {
                 AnimalRepositorio aN = new AnimalRepositorio();
                 int id = Integer.parseInt(idAnimal);
                 animal = aN.buscar(id);
             }
-            
+
             controladorDatosBD cL = new controladorDatosBD();
-        //action="../../controladorEmpleados"
-        int idEspecie = 0;
-        int idRaza = 0;
-        
-        Animal ani = new Animal();
-        if (request.getSession().getAttribute("animal") != null) {
-            ani = (Animal) request.getSession().getAttribute("animal");
-        }
-        
-        if (request.getSession().getAttribute("idEspecie") != null && request.getSession().getAttribute("idEspecie").equals("") == false) {
-            String especie = String.valueOf(request.getSession().getAttribute("idEspecie"));
-            idEspecie = Integer.valueOf(especie);
-        }
-        
-        EmpleadoRepositorio ep = new EmpleadoRepositorio();
-        Empleado empleado = ep.buscar(1);
+            int idEspecie = 0;
+            int idRaza = 0;
+
+            Animal ani = new Animal();
+            if (request.getSession().getAttribute("animal") != null) {
+                ani = (Animal) request.getSession().getAttribute("animal");
+            }
+
+            if (request.getSession().getAttribute("idEspecie") != null && request.getSession().getAttribute("idEspecie").equals("") == false) {
+                String especie = String.valueOf(request.getSession().getAttribute("idEspecie"));
+                idEspecie = Integer.valueOf(especie);
+            }
+
+            Empleado empleadoSesion = new Empleado();
+            if (request.getSession().getAttribute("empleadoSesion") != null) {
+                empleadoSesion = (Empleado) request.getSession().getAttribute("empleadoSesion");
+            }
+            Usuario usuarioSesion = new Usuario();
+            if (request.getSession().getAttribute("usuarioSesion") != null) {
+                usuarioSesion = (Usuario) request.getSession().getAttribute("usuarioSesion");
+            }
         %>
-        
+
         <header class="encabezado">
             <div class="encabezadoMenu">
                 <nav class="menu">
                     <a href="../../menuPrincipal.jsp"><img class="logoMenu" src="../../imagenes/Logo2.png"></a>
-                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
-                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><img class="perfilMenu" ></a>
+                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><p class="empleadoMenu"><%=empleadoSesion.getNombres()%></p></a>
+                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><img class="perfilMenu" ></a>
                     <ul>
                         <li><a href="../../menuPrincipal.jsp">Inicio</a></li>
                         <li><p>Citas</p>
-                          <ul>
-                            <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
-                            <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
-                          </ul>
+                            <ul>
+                                <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
+                            </ul>
                         </li>
                         <li><p>Facturas</p>
                             <ul>
@@ -110,7 +121,7 @@
                         </li>
                         <li><p>▼</p>
                             <ul>
-                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon">Ver Perfil</a></li>
+                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>">Ver Perfil</a></li>
                                 <li><a href="../../index.jsp">Cerrar Sesión</a></li>
                             </ul>
                         </li>
@@ -124,9 +135,9 @@
                 <form name="formulario" action="../../controladorAnimales" method="POST">
                     <input type="text"  name="accion" value="actualizar" hidden="true"/>
                     <label> No.Animal: </label>
-                    <input type="number"  name="idAnimal"readonly="true" value="<%if (ani.getIdAnimal()!= 0) {out.print(ani.getIdAnimal());}else{out.print(animal.getIdAnimal());}%>"/><br>
+                    <input type="number"  name="idAnimal"readonly="true" value="<%if (ani.getIdAnimal() != 0) {out.print(ani.getIdAnimal());} else {out.print(animal.getIdAnimal());}%>"/><br>
                     <label> Nombre: </label>
-                    <input type="text"  name="nombreAnimal" required="true" maxlength="50" value='<%if (ani.getNombre() != null) {out.print(ani.getNombre());}else{out.print(animal.getNombre());}%>'/><br>
+                    <input type="text"  name="nombreAnimal" required="true" maxlength="50" value='<%if (ani.getNombre() != null) {out.print(ani.getNombre());} else {out.print(animal.getNombre());}%>'/><br>
                     <label> Especie </label>
                     <select name="especie" onchange="formulario.submit()">
                         <option value="">Debe seleccionar una Especie</option>
@@ -135,67 +146,88 @@
                     <label> Raza: </label>
                     <select name="razaAnimal" required="true">
                         <option value="">Debe seleccionar una Especie</option>
-                        <%if(idEspecie != 0){out.print(cL.getOpcionesRaza(idEspecie, idRaza));}else{out.print(cL.getRaza(animal.getIdRaza()));}%>
+                        <%if (idEspecie != 0) {
+                                out.print(cL.getOpcionesRaza(idEspecie, idRaza));
+                            } else {
+                                out.print(cL.getRaza(animal.getIdRaza()));
+                            }%>
                     </select><br>
 
-                    
+
                     <label> Dueno del Animal: </label>
                     <select name="clienteDuenio" required="true" >
-                        <%if(ani.getIdClienteDuenio() != null && ani.getIdClienteDuenio() != ""){
-                            out.print(cL.getOpcionesClienteDuenio(ani.getIdClienteDuenio()));
-                            }
-                        else{out.print(cL.getOpcionesClienteDuenio(animal.getIdClienteDuenio()));}%> 
+                        <%if (ani.getIdClienteDuenio() != null && ani.getIdClienteDuenio() != "") {
+                                out.print(cL.getOpcionesClienteDuenio(ani.getIdClienteDuenio()));
+                            } else {
+                                out.print(cL.getOpcionesClienteDuenio(animal.getIdClienteDuenio()));
+                            }%> 
                     </select><br>
                     <label> Fecha de Nacimiento: </label>
                     <input type="date" name="fechaNacimientoAnimal" required="true" value='<%
                         if (ani.getFechaNacimiento() != null) {
                             String fechaFinalDate = new SimpleDateFormat("yyyy-MM-dd").format(ani.getFechaNacimiento());
                             out.print(fechaFinalDate);
-                        }else{
+                        } else {
                             String fechaFinalDate = new SimpleDateFormat("yyyy-MM-dd").format(animal.getFechaNacimiento());
                             out.print(fechaFinalDate);
                         }
                            %>'/><br>
                     <label> Tipo de Sangre: </label>
-                    <input type="text"  name="tipoSangre" required="true" maxlength="50" value='<%if (ani.getTipoSangre()!= null) {out.print(ani.getTipoSangre());}else{out.print(animal.getTipoSangre());}%>'/><br>
+                    <input type="text"  name="tipoSangre" required="true" maxlength="50" value='<%if (ani.getTipoSangre() != null) {out.print(ani.getTipoSangre());} else {out.print(animal.getTipoSangre());}%>'/><br>
                     <label> Genero: </label>
                     <select name="genero" required="true">
-                        <%if(ani.getIdGenero()!= 0){out.print(cL.getOpcionesGeneros(ani.getIdGenero()));}else{out.print(cL.getOpcionesGeneros(animal.getIdGenero()));}%>
+                        <%if (ani.getIdGenero() != 0) {
+                                out.print(cL.getOpcionesGeneros(ani.getIdGenero()));
+                            } else {
+                                out.print(cL.getOpcionesGeneros(animal.getIdGenero()));
+                            }%>
                     </select><br>
                     <label> Color: </label>
                     <select name="color" required="true">
-                        <%if(ani.getIdColor()!= 0){out.print(cL.getOpcionesColores(ani.getIdColor()));}else{out.print(cL.getOpcionesColores(animal.getIdColor()));}%>
+                        <%if (ani.getIdColor() != 0) {
+                                out.print(cL.getOpcionesColores(ani.getIdColor()));
+                            } else {
+                                out.print(cL.getOpcionesColores(animal.getIdColor()));
+                            }%>
                     </select><br>  
                     <label> Esterilizado </label>
                     <select name="esterilizado" required="true">
-                        <option value="1" <%if(ani.getEsterilizado() == 1){out.print("selected");}%>> Si </option>
-                        <option value="2" <%if(ani.getEsterilizado() == 0){out.print("selected");}%>> No </option>
+                        <option value="1" <%if (ani.getEsterilizado() == 1) {out.print("selected");}%>> Si </option>
+                        <option value="2" <%if (ani.getEsterilizado() == 0) {out.print("selected");}%>> No </option>
                     </select><br>
 
                     <label> Ruta de su fotografia: </label>
-                    <input type="text"  name="rutaFoto" maxlength="100" value='<%if (ani.getRutaFoto()!= null) {
+                    <input type="text"  name="rutaFoto" maxlength="100" value='<%if (ani.getRutaFoto() != null) {
                             out.print(ani.getRutaFoto());
-                        }else{if(animal.getRutaFoto()!= null){out.print(animal.getRutaFoto());}}%>'/><br>
-                    
+                        } else {
+                            if (animal.getRutaFoto() != null) {
+                                out.print(animal.getRutaFoto());
+                            }
+                        }%>'/><br>
+
                     <label> Observaciones: </label> 
-                    <textarea rows="4" cols="50"  name="observaciones"><%if (ani.getObservaciones()!= null) {
+                    <textarea rows="4" cols="50"  name="observaciones"><%if (ani.getObservaciones() != null) {
                             out.print(ani.getObservaciones());
-                        }else{if(animal.getObservaciones()!= null){out.print(animal.getObservaciones());}}%>
+                        } else {
+                            if (animal.getObservaciones() != null) {
+                                out.print(animal.getObservaciones());
+                            }
+                        }%>
                     </textarea><br>
-                    
+
                     <br>
-                    
+
                     <input class='boton' name="insert" type="submit" value="Actualizar Animal" name="enviar" />
                     <input class='boton' name="insert" type="submit" value="Desactivar Animal" name="enviar" />
 
                 </form>
             </div>
         </div>
-        
+
         <footer>
-             <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
-             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
-             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+            <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+            <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+            <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
         </footer>   
     </body>
 </html>

@@ -7,11 +7,13 @@ package hn.uth.proyecto.vetkom.controladores;
 
 /**
  *
- * @author pccinho
+ * @author Miriam
  */
 public class servletConfiguracion {
-    public static String ACCION_NUEVO="nuevo";
-    public static String ACCION_ACTUALIZAR="actualizar";
-    public static String ACCION_ELIMINAR="eliminar";
-    public static String ACCION_CONSULTAR="consultar";
+
+    public static String ACCION_NUEVO = "nuevo";
+    public static String ACCION_ACTUALIZAR = "actualizar";
+    public static String ACCION_ELIMINAR = "eliminar";
+    public static String ACCION_CONSULTAR = "consultar";
+
 }

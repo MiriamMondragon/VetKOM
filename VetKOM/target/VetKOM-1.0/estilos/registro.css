@@ -73,9 +73,9 @@ label{
 }
 
 input{
-   width: 16em;
-   padding-top: 3px;
-   padding-left: 3px;
+    width: 16em;
+    padding-top: 3px;
+    padding-left: 3px;
 }
 
 select{
@@ -145,7 +145,7 @@ input.botonDetalle{
     padding: -10px;
     border-radius: 5px;
     font-weight: bold;
-    
+
     margin-left: 9px;
     height: 30px;
     width: 30px;

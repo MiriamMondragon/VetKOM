@@ -15,9 +15,9 @@ and open the template in the editor.
 
 body{
     min-height: 80vh;
-    
+
     background: url(../imagenes/fondo3.jpg);
-    
+
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -110,7 +110,7 @@ input[type="submit"]:hover{
 
 .centrado{
     text-align: center;
-     align-items: center;
+    align-items: center;
 }
 
 img.imagenFooter{

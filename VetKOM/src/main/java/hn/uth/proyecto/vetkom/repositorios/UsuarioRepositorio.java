@@ -6,45 +6,22 @@
 package hn.uth.proyecto.vetkom.repositorios;
 
 import hn.uth.proyecto.vetkom.objetos.Usuario;
+import static hn.uth.proyecto.vetkom.repositorios.Conexion.getConnection;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Miriam
  */
 public class UsuarioRepositorio implements Repositorio<Usuario> {
-
-    public Connection getConnection() throws Exception {
-        try {
-
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UsuarioRepositorio.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            String connectionUrl = "jdbc:sqlserver://DESKTOP-81AR53A\\SQLEXPRESS2017:1433;databaseName=BD2_Veterinaria";
-            return DriverManager.getConnection(connectionUrl, "sa", "kp198103");
-
-            //String connectionUrl = "jdbc:sqlserver://DESKTOP-R7UAJG0\\SQLEXPRESS01:1433;databaseName=BD2_Veterinaria";
-            //return DriverManager.getConnection(connectionUrl, "sa", "Sephiroth51342");
-
-        } catch (SQLException e) {
-            throw new Exception("No se pudo establecer la conexión: " + e.toString());
-        }
-    }
 
     @Override
     public void crear(Usuario t) throws Exception {
@@ -128,17 +105,17 @@ public class UsuarioRepositorio implements Repositorio<Usuario> {
                 int activo = resultado.getInt("Activo");
                 Date fechaRegistro = resultado.getDate("Fecha_Registro");
                 Date fechaActualizacion = Date.valueOf(LocalDate.now());
-                if (resultado.getDate("Ultima_Fecha_Actualizacion") != null){
+                if (resultado.getDate("Ultima_Fecha_Actualizacion") != null) {
                     fechaActualizacion = resultado.getDate("Ultima_Fecha_Actualizacion");
                 }
-                
+
                 valorRetorno.setUsuario(usuario);
                 valorRetorno.setIdEmpleado(idEmpleado);
                 valorRetorno.setClave(clave);
                 valorRetorno.setActivo(activo);
                 valorRetorno.setFechaRegistro(fechaRegistro);
                 valorRetorno.setFechaModificacion(fechaActualizacion);
-                
+
             }
 
             st.close();
@@ -169,10 +146,10 @@ public class UsuarioRepositorio implements Repositorio<Usuario> {
                 int activo = resultado.getInt("Activo");
                 Date fechaRegistro = resultado.getDate("Fecha_Registro");
                 Date fechaActualizacion = Date.valueOf(LocalDate.now());
-                if (resultado.getDate("Ultima_Fecha_Actualizacion") != null){
+                if (resultado.getDate("Ultima_Fecha_Actualizacion") != null) {
                     fechaActualizacion = resultado.getDate("Ultima_Fecha_Actualizacion");
                 }
-                
+
                 Usuario valorRetorno = new Usuario();
                 valorRetorno.setUsuario(usuario);
                 valorRetorno.setIdEmpleado(idEmpleado);
@@ -190,6 +167,45 @@ public class UsuarioRepositorio implements Repositorio<Usuario> {
             throw new Exception("Error al buscar todos: " + e.toString());
         }
         return listaRetorno;
+    }
+
+    public Usuario iniciar(String idUsuario, String claveR) throws Exception {
+        Usuario valorRetorno = new Usuario();
+        try {
+            Connection cnx = getConnection();
+
+            String sql = "SELECT * FROM Usuarios WHERE Id_Usuario = '" + idUsuario + "' AND Clave = '" + claveR + "' AND Activo = 1";
+
+            Statement st = cnx.createStatement();
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                String usuario = resultado.getString("Id_Usuario");
+                int idEmpleado = resultado.getInt("Id_Empleado");
+                String clave = resultado.getString("Clave");
+                int activo = resultado.getInt("Activo");
+                Date fechaRegistro = resultado.getDate("Fecha_Registro");
+                Date fechaActualizacion = Date.valueOf(LocalDate.now());
+                if (resultado.getDate("Ultima_Fecha_Actualizacion") != null) {
+                    fechaActualizacion = resultado.getDate("Ultima_Fecha_Actualizacion");
+                }
+
+                valorRetorno.setUsuario(usuario);
+                valorRetorno.setIdEmpleado(idEmpleado);
+                valorRetorno.setClave(clave);
+                valorRetorno.setActivo(activo);
+                valorRetorno.setFechaRegistro(fechaRegistro);
+                valorRetorno.setFechaModificacion(fechaActualizacion);
+
+            }
+
+            st.close();
+            cnx.close();
+        } catch (SQLException e) {
+            valorRetorno = null;
+        }
+        return valorRetorno;
     }
 
 }

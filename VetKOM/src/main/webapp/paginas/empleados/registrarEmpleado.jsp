@@ -4,6 +4,7 @@
     Author     : Miriam
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Usuario"%>
 <%@page import="hn.uth.proyecto.vetkom.controladores.controladorDatosBD"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -23,9 +24,14 @@
         <link rel="stylesheet" href="../../estilos/tooltip.css">
         <title>Registrar Empleado</title>
     </head>
+    
+    <script type="text/javascript">
+        history.forward();
+    </script>
+    
     <%
         controladorDatosBD cL = new controladorDatosBD();
-        //action="../../controladorEmpleados"
+        
         Empleado em = new Empleado();
         if (request.getSession().getAttribute("empleado") != null) {
             em = (Empleado) request.getSession().getAttribute("empleado");
@@ -42,27 +48,33 @@
         }
         EmpleadoRepositorio eR = new EmpleadoRepositorio();
         int numero = 0;
-        if(eR.getIdentity() != 0){
+        if (eR.getIdentity() != 0) {
             numero = eR.getIdentity();
         }
-        
-        EmpleadoRepositorio ep = new EmpleadoRepositorio();
-        Empleado empleado = ep.buscar(1);
+
+        Empleado empleadoSesion = new Empleado();
+        if (request.getSession().getAttribute("empleadoSesion") != null) {
+            empleadoSesion = (Empleado) request.getSession().getAttribute("empleadoSesion");
+        }
+        Usuario usuarioSesion = new Usuario();
+        if (request.getSession().getAttribute("usuarioSesion") != null) {
+            usuarioSesion = (Usuario) request.getSession().getAttribute("usuarioSesion");
+        }
     %>
     <body>
         <header class="encabezado">
             <div class="encabezadoMenu">
                 <nav class="menu">
                     <a href="../../menuPrincipal.jsp"><img class="logoMenu" src="../../imagenes/Logo2.png"></a>
-                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
-                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><img class="perfilMenu" ></a>
+                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><p class="empleadoMenu"><%=empleadoSesion.getNombres()%></p></a>
+                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><img class="perfilMenu" ></a>
                     <ul>
                         <li><a href="../../menuPrincipal.jsp">Inicio</a></li>
                         <li><p>Citas</p>
-                          <ul>
-                            <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
-                            <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
-                          </ul>
+                            <ul>
+                                <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
+                            </ul>
                         </li>
                         <li><p>Facturas</p>
                             <ul>
@@ -108,7 +120,7 @@
                         </li>
                         <li><p>▼</p>
                             <ul>
-                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon">Ver Perfil</a></li>
+                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>">Ver Perfil</a></li>
                                 <li><a href="../../index.jsp">Cerrar Sesión</a></li>
                             </ul>
                         </li>
@@ -123,7 +135,7 @@
                 <form name="formulario" action="../../controladorEmpleados" method="POST">
                     <input type="text"  name="accion" value="nuevo" hidden="true"/>
                     <label> No.Empleado: </label>
-                    <input type="number"  name="idEmpleado"readonly="true" value="<%if (em.getIdEmpleado() != 0) {out.print(em.getIdEmpleado());}else{out.print(numero);}%>"/><br>
+                    <input type="number"  name="idEmpleado"readonly="true" value="<%if (em.getIdEmpleado() != 0) {out.print(em.getIdEmpleado());} else {out.print(numero);}%>"/><br>
                     <label> Nombres: </label>
                     <input type="text"  name="nombresEmpleado" required="true" maxlength="50" value='<%if (em.getNombres() != null) {out.print(em.getNombres());}%>'/><br>
                     <label> Apellidos: </label>
@@ -137,17 +149,17 @@
                            %>'/><br>
                     <label> Fecha de Contratación: </label>
                     <input type="date" name="fechaContratacionEmpleado" required="true" value='<%
-                        if (em.getFechaContratacion()!= null) {
+                        if (em.getFechaContratacion() != null) {
                             String fechaFinalDate = new SimpleDateFormat("yyyy-MM-dd").format(em.getFechaContratacion());
                             out.print(fechaFinalDate);
-                           }
+                        }
                            %>'/><br>
                     <label> Fecha de Finalización de Contrato: </label>
                     <input type="date" name="fechaFinalizacionContratoEmpleado" required="true" value='<%
                         if (em.getFechaFinalizacionContrato() != null) {
                             String fechaFinalDate = new SimpleDateFormat("yyyy-MM-dd").format(em.getFechaFinalizacionContrato());
                             out.print(fechaFinalDate);
-                           }
+                        }
                            %>'/><br>
                     <label> Cargo: </label>
                     <select name="cargoEmpleado" required="true" >
@@ -195,9 +207,9 @@
         </div>
 
         <footer>
-             <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
-             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
-             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+            <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+            <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+            <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
         </footer>   
     </body>
 </html>

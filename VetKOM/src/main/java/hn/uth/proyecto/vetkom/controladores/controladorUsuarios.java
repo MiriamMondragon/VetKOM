@@ -5,10 +5,11 @@
  */
 package hn.uth.proyecto.vetkom.controladores;
 
+import hn.uth.proyecto.vetkom.objetos.Empleado;
 import hn.uth.proyecto.vetkom.objetos.Usuario;
+import hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio;
 import hn.uth.proyecto.vetkom.repositorios.UsuarioRepositorio;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -46,6 +47,26 @@ public class controladorUsuarios extends HttpServlet {
 
             String submit = request.getParameter("insert");
 
+            if (submit != null && submit.equals("Iniciar Sesion")) {
+                try {
+                    UsuarioRepositorio usuarioRepositorio = new UsuarioRepositorio();
+                    EmpleadoRepositorio empleadoRepositorio = new EmpleadoRepositorio();
+
+                    Usuario usuarioSesion = usuarioRepositorio.iniciar(idUsuario, clave);
+                    Empleado empleadoSesion = empleadoRepositorio.buscar(usuarioSesion.getIdEmpleado());
+                    if (usuarioSesion.getIdEmpleado() != 0 && empleadoSesion != null) {
+                        request.getSession().setAttribute("usuarioSesion", usuarioSesion);
+                        request.getSession().setAttribute("empleadoSesion", empleadoSesion);
+                        response.sendRedirect("menuPrincipal.jsp");
+                    } else {
+                        response.sendRedirect("index.jsp");
+                    }
+                } catch (Exception ex) {
+                    ir(request, response, "index.jsp");
+                    ex.printStackTrace();
+                }
+            }
+
             if (submit != null && (submit.equals("Guardar Usuario") || submit.equals("Actualizar Usuario") || submit.equals("Desactivar Usuario"))) {
                 Usuario usuario = recuperarUsuario(idUsuario, idEmpleado, clave, fechaRegistro, fechaModificacion);
                 if (accion.equals(servletConfiguracion.ACCION_NUEVO)) {
@@ -55,7 +76,7 @@ public class controladorUsuarios extends HttpServlet {
                             usuarioRepo.crear(usuario);
                             String msExito = "Registro añadido exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/usuarios/registrarUsuario.jsp");
                         }
@@ -75,7 +96,7 @@ public class controladorUsuarios extends HttpServlet {
                             usuarioRepo.actualizar(usuario);
                             String msExito = "Registro actualizado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/usuarios/actualizarUsuario.jsp");
                         }
@@ -94,7 +115,7 @@ public class controladorUsuarios extends HttpServlet {
                             usuarioRepo.desactivar(usuario);
                             String msExito = "Registro desactivado exitosamente";
                             request.setAttribute("msExito", msExito);
-                            ir(request, response, "index.jsp");
+                            ir(request, response, "menuPrincipal.jsp");
                         } else {
                             ir(request, response, "paginas/usuarios/actualizarUsuario.jsp");
                         }
@@ -117,7 +138,7 @@ public class controladorUsuarios extends HttpServlet {
 
     }
 
-        private Usuario recuperarUsuario(String usuario, String idEmpleado, String clave, String fechaRegistro, String fechaActualizacion) {
+    private Usuario recuperarUsuario(String usuario, String idEmpleado, String clave, String fechaRegistro, String fechaActualizacion) {
         Usuario usuarioO = new Usuario();
         try {
             Date fechaRegistroDate = null;

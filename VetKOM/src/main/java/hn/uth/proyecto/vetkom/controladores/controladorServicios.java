@@ -8,7 +8,6 @@ package hn.uth.proyecto.vetkom.controladores;
 import hn.uth.proyecto.vetkom.objetos.Servicio;
 import hn.uth.proyecto.vetkom.repositorios.ServicioRepositorio;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,12 +45,12 @@ public class controladorServicios extends HttpServlet {
             Servicio servicio = recuperarServicio(idServicio, nombre, idEstado, precio);
             if (accion.equals(servletConfiguracion.ACCION_NUEVO)) {
                 try {
-                    if (servicio.getIdServicio()!= 0) {
+                    if (servicio.getIdServicio() != 0) {
                         ServicioRepositorio servicioRepo = new ServicioRepositorio();
                         servicioRepo.crear(servicio);
                         String msExito = "Registro añadido exitosamente";
                         request.setAttribute("msExito", msExito);
-                        ir(request, response, "index.jsp");
+                        ir(request, response, "menuPrincipal.jsp");
                     } else {
                         ir(request, response, "paginas/servicios/registrarServicio.jsp");
                     }
@@ -66,12 +65,12 @@ public class controladorServicios extends HttpServlet {
 
             if (accion.equals(servletConfiguracion.ACCION_ACTUALIZAR) && submit.equals("Actualizar Servicio")) {
                 try {
-                    if (servicio.getIdServicio()!= 0) {
+                    if (servicio.getIdServicio() != 0) {
                         ServicioRepositorio servicioRepo = new ServicioRepositorio();
                         servicioRepo.actualizar(servicio);
                         String msExito = "Registro actualizado exitosamente";
                         request.setAttribute("msExito", msExito);
-                        ir(request, response, "index.jsp");
+                        ir(request, response, "menuPrincipal.jsp");
                     } else {
                         ir(request, response, "paginas/servicios/actualizarServicio.jsp");
                     }
@@ -85,12 +84,12 @@ public class controladorServicios extends HttpServlet {
             }
             if (accion.equals(servletConfiguracion.ACCION_ACTUALIZAR) && submit.equals("Desactivar Servicio")) {
                 try {
-                    if (servicio.getIdServicio()!= 0) {
+                    if (servicio.getIdServicio() != 0) {
                         ServicioRepositorio servicioRepo = new ServicioRepositorio();
                         servicioRepo.desactivar(servicio);
                         String msExito = "Registro desactivado exitosamente";
                         request.setAttribute("msExito", msExito);
-                        ir(request, response, "index.jsp");
+                        ir(request, response, "menuPrincipal.jsp");
                     } else {
                         ir(request, response, "paginas/servicios/actualizarServicio.jsp");
                     }
@@ -118,13 +117,13 @@ public class controladorServicios extends HttpServlet {
             }
             servicio.setIdServicio(id);
             servicio.setNombre(nombre);
-            
+
             int idEs = 3;
             if (idEstado != null && idEstado.equals("") == false) {
                 idEs = Integer.parseInt(idEstado);
             }
             servicio.setIdEstado(idEs);
-            
+
             double precioD = 0.0;
             if (precio != null && precio.equals("") == false) {
                 precioD = Double.parseDouble(precio);

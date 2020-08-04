@@ -4,6 +4,7 @@
     Author     : Miriam
 --%>
 
+<%@page import="hn.uth.proyecto.vetkom.objetos.Usuario"%>
 <%@page import="hn.uth.proyecto.vetkom.objetos.Empleado"%>
 <%@page import="hn.uth.proyecto.vetkom.repositorios.EmpleadoRepositorio"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -23,9 +24,14 @@
         <link rel="stylesheet" href="../../estilos/tooltip.css">
         <title>Registrar Cliente</title>
     </head>
+    
+    <script type="text/javascript">
+        history.forward();
+    </script>
+    
     <%
         controladorDatosBD cL = new controladorDatosBD();
-        //action="../../controladorClientes"
+
         Cliente cli = new Cliente();
         if (request.getSession().getAttribute("cliente") != null) {
             cli = (Cliente) request.getSession().getAttribute("cliente");
@@ -40,24 +46,30 @@
             String depto = String.valueOf(request.getSession().getAttribute("idDepto"));
             idDepto = Integer.valueOf(depto);
         }
-        
-        EmpleadoRepositorio ep = new EmpleadoRepositorio();
-        Empleado empleado = ep.buscar(1);
+
+        Empleado empleadoSesion = new Empleado();
+        if (request.getSession().getAttribute("empleadoSesion") != null) {
+            empleadoSesion = (Empleado) request.getSession().getAttribute("empleadoSesion");
+        }
+        Usuario usuarioSesion = new Usuario();
+        if (request.getSession().getAttribute("usuarioSesion") != null) {
+            usuarioSesion = (Usuario) request.getSession().getAttribute("usuarioSesion");
+        }
     %>
     <body>
         <header class="encabezado">
             <div class="encabezadoMenu">
                 <nav class="menu">
                     <a href="../../menuPrincipal.jsp"><img class="logoMenu" src="../../imagenes/Logo2.png"></a>
-                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><p class="empleadoMenu"><%=empleado.getNombres()%></p></a>
-                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon"><img class="perfilMenu" ></a>
+                    <a class="empleadoMenu" href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><p class="empleadoMenu"><%=empleadoSesion.getNombres()%></p></a>
+                    <a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>"><img class="perfilMenu" ></a>
                     <ul>
                         <li><a href="../../menuPrincipal.jsp">Inicio</a></li>
                         <li><p>Citas</p>
-                          <ul>
-                            <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
-                            <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
-                          </ul>
+                            <ul>
+                                <li><a href="../../paginas/citas/registrarCita.jsp">Crear Cita</a></li>
+                                <li><a href="../../paginas/buscador.jsp?action=Cita">Buscar Cita</a></li>
+                            </ul>
                         </li>
                         <li><p>Facturas</p>
                             <ul>
@@ -103,7 +115,7 @@
                         </li>
                         <li><p>▼</p>
                             <ul>
-                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=miriam.mondragon">Ver Perfil</a></li>
+                                <li><a href="../../paginas/usuarios/actualizarUsuario.jsp?accion=actualizar&idUsuario=<%out.print(usuarioSesion.getUsuario());%>">Ver Perfil</a></li>
                                 <li><a href="../../index.jsp">Cerrar Sesión</a></li>
                             </ul>
                         </li>
@@ -130,12 +142,12 @@
                             out.print(fechaFinalDate);
                         }
                            %>'/><br>
-                    
+
                     <label> Género: </label>
                     <select name="idGeneroCliente" required="true" >
                         <%out.print(cL.getOpcionesGeneros(cli.getIdGenero()));%>
                     </select><br>
-                    
+
                     <label> Dirección: </label>
                     <input type="text"  name="direccionCliente" required="true" maxlength="50" value='<%if (cli.getDireccion() != null) {out.print(cli.getDireccion());}%>'/><br>
 
@@ -158,21 +170,21 @@
 
                     <label> Ruta de su fotografia: </label>
                     <input type="text"  name="rutaFoto" maxlength="100" value=''/><br>
-                    
+
                     <div class="tooltip">
                         <label> Teléfonos: </label>
                         <span class="tooltiptext">Ingresar varios teléfonos, separados por comas (,)</span>
                         <input type="text"  name="telefonos" value=''/><br>
                     </div>
                     <br>
-                    
+
                     <div class="tooltip">
                         <label> Correos: </label>
                         <span class="tooltiptext">Ingresar varios correos, separados por comas (,)</span>
                         <input type="text"  name="correos" value=''/><br>
                     </div>
                     <br>
-                    
+
                     <input class='boton' name="insert" type="submit" value="Guardar Cliente" name="enviar" />
 
                 </form>
@@ -180,9 +192,9 @@
         </div>
 
         <footer>
-             <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
-             <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
-             <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
+            <a href="../../menuPrincipal.jsp"><img class="imagenFooter" src="../../imagenes/Logo2.png" alt="Logo de el Footer"><br></a>
+            <p>© 2020 Universidad Tecnológica de Honduras © VetKOM</p>
+            <p class="contactanos">Contáctanos: <br> +504 9837-9065,<br> +504 9880-3121</p>
         </footer>   
     </body>
 </html>
