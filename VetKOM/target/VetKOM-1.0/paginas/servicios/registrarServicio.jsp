@@ -125,7 +125,7 @@
                     <input type="text"  name="nombreServicio" required="true" maxlength="50" value='<%if (ser.getNombre() != null) {out.print(ser.getNombre());}%>'/><br>
                     <label> Precio del Servicio: </label>
                     <input type="number" name="precio" placeholder="1.00" step="0.01" min="1" required="true" value="<%if (ser.getPrecio()!= 0) {out.print(ser.getPrecio());}%>"/><br>
-                    <p class="lempira">.Lps </p>
+                    <p class="lempira"> L. </p>
                     <input class='boton' name="insert" type="submit" value="Guardar Servicio" name="enviar" />
 
                 </form>

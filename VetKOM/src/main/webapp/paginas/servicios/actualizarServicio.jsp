@@ -139,7 +139,7 @@
                         } else {
                             out.print(servicio.getPrecio());
                         }%>'/><br>
-                    <p class="lempira">.Lps </p>
+                    <p class="lempira"> L. </p>
 
                     <input class='boton' name="insert" type="submit" value="Actualizar Servicio" name="enviar" />
                     <input class='boton' name="insert" type="submit" value="Desactivar Servicio" name="enviar" />

@@ -174,14 +174,10 @@ input[name="subTotal"], input[name="total"], input[name="precio"] {
 
 p.lempira{
     text-transform: lowercase;
-    margin-top: -30px;
-    margin-left: 26.5em;
-}
-
-p.lempira{
-    text-transform: lowercase;
-    margin-top: -30px;
-    margin-left: 26.5em;
+    margin-top: -29px;
+    margin-left: 10.7em; /*Lempira al Final*/
+    /* margin-left: 26.5em; lempira al Final*/
+    text-transform:uppercase; /*Titulos en Mayusculas*/
 }
 
 footer{

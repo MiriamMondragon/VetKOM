@@ -171,10 +171,10 @@
 
                     <label> SubTotal: </label>
                     <input type="number" name="subTotal" placeholder="1.00" step="0.01" min="1" required="true" readonly="true" value='<%if (fac.getSubtotal() != 0) {out.print(fac.getSubtotal());} else {out.print(factura.getSubtotal());}%>'/><br>
-                    <p class="lempira">.Lps </p>
+                    <p class="lempira"> L. </p>
                     <label> Total: </label>
                     <input type="number" name="total" placeholder="1.00" step="0.01" min="1" required="true" readonly="true" value='<%if (fac.getTotal() != 0) {out.print(fac.getTotal());} else {out.print(factura.getTotal());}%>'/><br>
-                    <p class="lempira">.Lps </p>
+                    <p class="lempira"> L. </p>
                     <input class='boton' name="insert" type="submit" value="Anular Factura"/>
 
                 </form>

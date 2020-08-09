@@ -174,7 +174,7 @@
                         } else {
                             out.print(producto.getPrecio());
                         }%>'/><br>
-                    <p class="lempira">.Lps </p>
+                    <p class="lempira"> L. </p>
 
                     <input class='boton' name="insert" type="submit" value="Actualizar Producto" name="enviar" />
                     <input class='boton' name="insert" type="submit" value="Desactivar Producto" name="enviar" />

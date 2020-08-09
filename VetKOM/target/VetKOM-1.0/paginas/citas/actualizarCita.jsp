@@ -123,7 +123,7 @@
 
         <div class="principal">
             <div class="formulario">
-                <center><h2>Actualizar Empleado</h2></center>
+                <center><h2>Actualizar Cita</h2></center>
                 <form name="formulario" action="../../controladorCitas" method="POST">
                     <input type="text"  name="accion" value="actualizar" hidden="true"/>
                     <label> No. Cita: </label>

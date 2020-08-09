@@ -106,7 +106,7 @@ public class controladorPrincipal {
                         String fila = "<tr>";
                         fila += "<td>" + producto.getIdProducto() + "</td>";
                         fila += "<td>" + producto.getNombre() + "</td>";
-                        fila += "<td>" + producto.getPrecio() + " lps</td>";
+                        fila += "<td> L. " + producto.getPrecio() + "</td>";
                         fila += "<td><a href=\"productos/actualizarProducto.jsp?accion=actualizar&idProducto=" + producto.getIdProducto() + "\"> Actualizar Producto</a></td>";
                         tabla += fila;
                     }
@@ -131,7 +131,7 @@ public class controladorPrincipal {
                         String fila = "<tr>";
                         fila += "<td>" + servicio.getIdServicio() + "</td>";
                         fila += "<td>" + servicio.getNombre() + "</td>";
-                        fila += "<td> " + servicio.getPrecio() + " lps</td>";
+                        fila += "<td> L. " + servicio.getPrecio() + "</td>";
                         fila += "<td><a href=\"servicios/actualizarServicio.jsp?accion=actualizar&idServicio=" + servicio.getIdServicio() + "\"> Actualizar Servicio</a></td>";
                         tabla += fila;
                     }
@@ -265,9 +265,9 @@ public class controladorPrincipal {
                         String fila = "<tr>";
                         fila += "<td>" + detalle.getIdConcepto() + "</td>";
                         fila += "<td>" + detalle.getNombre() + "</td>";
-                        fila += "<td>" + detalle.getPrecio() + " lps </td>";
-                        fila += "<td>" + detalle.getImpuesto() + " lps </td>";
-                        fila += "<td>" + detalle.getDescuento() + " lps </td>";
+                        fila += "<td> L." + detalle.getPrecio() + "</td>";
+                        fila += "<td> L." + detalle.getImpuesto() + "</td>";
+                        fila += "<td> L." + detalle.getDescuento() + "</td>";
                         fila += "<td><a href=\"../../controladorFacturas?accion=EliminarDetalle&idFactura=" + idFactura + "&idConcepto=" + detalle.getIdConcepto() + "\"><img class='eliminarDetalle' src=\"../../imagenes/basura.png\"></a></td>";
                         tabla += fila;
                     }
@@ -299,7 +299,7 @@ public class controladorPrincipal {
                         String fila = "<tr>";
                         fila += "<td>" + detalle.getIdConcepto() + "</td>";
                         fila += "<td>" + detalle.getNombre() + "</td>";
-                        fila += "<td>" + detalle.getPrecio() + " lps</td>";
+                        fila += "<td> L." + detalle.getPrecio() + "</td>";
                         fila += "<td>" + detalle.getImpuesto() + "</td>";
                         fila += "<td>" + detalle.getDescuento() + "</td>";
                         tabla += fila;
