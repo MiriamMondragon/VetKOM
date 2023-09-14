@@ -7,14 +7,14 @@ You can watch this project functionalities in the video demo for [VetKOM Project
 And further explanation in the next video (audio in spanish only) [VetKOM Project Explanation](https://www.youtube.com/watch?v=xo_r_-VDsO4&t=5m49s)
 
  ## Functionality and Usage
-- Allow pets, customers, and appointments to be recorded with all relevant information.
-- Allow editing of information or deactivation of accounts and more.
+- Allows pets, customers, and appointments to be recorded with all relevant information.
+- Allows editing of information or deactivation of accounts and more.
 - An intersting interface.
   ![Screenshot of the project.](/Images/Login.PNG)
-- List the total appointments per doctor using filters, or textual search.
-- Allow recording relevant information of company employees, editing and deactivation.
-- Record the assignment and booking and generate reports on this process.
-- Manage branches, departments and suppliers for informational use.
+- Lists the total appointments per doctor using filters, or textual search.
+- Allows recording relevant information of company employees, editing and deactivation.
+- Records the assignment and booking and generate reports on this process.
+- Manages branches, departments and suppliers for informational use.
 - Recording of activity in the system through a log.
 
  ## Considerations
