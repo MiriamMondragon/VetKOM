@@ -10,7 +10,7 @@ And further explanation in the next video (audio in spanish only) [VetKOM Projec
 - Allow pets, customers, and appointments to be recorded with all relevant information.
 - Allow editing of information or deactivation of accounts and more.
 - An intersting interface.
-  ![Screenshot of the project.](/Images/1.png)
+  ![Screenshot of the project.](/Images/Login.PNG)
 - List the total appointments per doctor using filters, or textual search.
 - Allow recording relevant information of company employees, editing and deactivation.
 - Record the assignment and booking and generate reports on this process.
