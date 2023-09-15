@@ -1,6 +1,6 @@
 # VetKOM
 ## Key Words
-<kbd>SQL Server</kbd> <kbd>Transact SQL</kbd> <kbd>DataBase Design</kbd> <kbd>Java</kbd> <kbd>JSP</kbd> <kbd>Java Servlet Pages</kbd> <kbd>JavaScript</kbd> <kbd>jQuery</kbd> <kbd>Veterinary</kbd> <kbd>Administration Software</kbd> <kbd>Facturation System</kbd>
+<kbd>SQL Server</kbd> <kbd>Transact SQL</kbd> <kbd>DataBase Design</kbd> <kbd>Java</kbd> <kbd>JSP</kbd> <kbd>Java Server Pages</kbd> <kbd>JavaScript</kbd> <kbd>jQuery</kbd> <kbd>Veterinary</kbd> <kbd>Administration Software</kbd> <kbd>Facturation System</kbd>
  
  ## Video Demo
 You can watch this project functionalities in the video demo for [VetKOM Project](https://youtu.be/bLgq8XB3ByE).
