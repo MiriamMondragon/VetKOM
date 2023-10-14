@@ -19,6 +19,6 @@ And further explanation in the next video (audio in spanish only) [VetKOM Projec
 - Recording of activity in the system through a log.
 
  ## Considerations
-1. The interface was made from scratch with CSS and JavaScript alone iin a period of two days.
+1. The interface was made from scratch with CSS and JavaScript alone in a period of two days.
 2. Its a project with a lot of room for improvement and optimization.
 
